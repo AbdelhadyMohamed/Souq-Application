@@ -18,18 +18,21 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   static ProductListBloc get(context) => BlocProvider.of(context);
   ProductListBloc() : super(ProductListInitial()) {
     on<ProductListEvent>((event, emit) async {
-      ApiManager apiManager = ApiManager();
-      ProductRemoteDS productRemoteDS = ProductRemoteDSImpl(apiManager);
-      ProductListRepo productListRepo = ProductListRepoImpl(productRemoteDS);
-      ProductListUseCase productListUseCase =
-          ProductListUseCase(productListRepo);
-      var result = await productListUseCase.call();
-      result.fold((l) {
-        emit(state.copyWith(screenStatus: ScreenStatus.failures, failures: l));
-      }, (r) {
-        emit(state.copyWith(
-            screenStatus: ScreenStatus.successfully, productModel: r));
-      });
+      if (event is GetAllProducts) {
+        ApiManager apiManager = ApiManager();
+        ProductRemoteDS productRemoteDS = ProductRemoteDSImpl(apiManager);
+        ProductListRepo productListRepo = ProductListRepoImpl(productRemoteDS);
+        ProductListUseCase productListUseCase =
+            ProductListUseCase(productListRepo);
+        var result = await productListUseCase.call();
+        result.fold((l) {
+          emit(
+              state.copyWith(screenStatus: ScreenStatus.failures, failures: l));
+        }, (r) {
+          emit(state.copyWith(
+              screenStatus: ScreenStatus.successfully, productModel: r));
+        });
+      }
     });
   }
 }

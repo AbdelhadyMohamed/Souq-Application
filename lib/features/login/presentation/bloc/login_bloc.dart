@@ -5,6 +5,7 @@ import 'package:ecommerce/features/login/data/repo/login_repo_impl.dart';
 import 'package:ecommerce/features/login/domain/use_case/login_use_case.dart';
 import 'package:ecommerce/features/signup/domain/entities/UserEntity.dart';
 import 'package:ecommerce/features/signup/presentation/bloc/sign_up_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -16,17 +17,19 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static LoginBloc get(context) => BlocProvider.of(context);
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   LoginBloc() : super(LoginInitial()) {
     on<LoginEvent>((event, emit) async {
       if (event is LogInButtonEvent) {
-        emit(state.copyWith(screenStatus: ScreenStatus.init));
+        emit(state.copyWith(screenStatus: ScreenStatus.loading));
         ApiManager apiManager = ApiManager();
         LogInRemoteDataSource logInRemoteDataSource =
             LogInRemoteDataSourceImpl(apiManager);
         LogInRepo logInRepo = LogInRepoImpl(logInRemoteDataSource);
         LogInUseCase logInUseCase = LogInUseCase(logInRepo);
-        var result =
-            await logInUseCase.call("ahmsedm3utti@gmail.com", "Ahmed@123");
+        var result = await logInUseCase.call(
+            emailController.text, passwordController.text);
         result.fold((l) {
           print(l.toString());
           emit(state.copyWith(screenStatus: ScreenStatus.failure, failures: l));

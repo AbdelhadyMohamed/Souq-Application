@@ -11,6 +11,10 @@ class LogInRepoImpl implements LogInRepo {
 
   @override
   Future<Either<Failures, UserModel>> logIn(String email, String password) {
-    return logInRemoteDataSource.login(email, password);
+    try {
+      return logInRemoteDataSource.login(email, password);
+    } catch (e) {
+      throw (RemoteFailures("something went wrong"));
+    }
   }
 }
