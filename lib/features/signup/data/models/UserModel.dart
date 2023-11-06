@@ -10,7 +10,6 @@ class UserModel extends UserEntity {
   }
   String? message;
   @override
-  // TODO: implement props
   List<Object?> get props => [super.props, message];
 }
 
@@ -27,5 +26,6 @@ class User extends UserEntityData {
     role = json['role'];
   }
   String? role;
+  @override
   List<Object?> get props => [super.props, role];
 }

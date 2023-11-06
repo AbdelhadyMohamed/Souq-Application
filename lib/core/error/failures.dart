@@ -1,3 +1,5 @@
+import '../../features/signup/data/models/UserModel.dart';
+
 abstract class Failures {
   String message;
   Failures(this.message);

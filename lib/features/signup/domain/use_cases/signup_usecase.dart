@@ -6,6 +6,7 @@ import 'package:ecommerce/features/signup/domain/repositories/sign_up_repo.dart'
 
 class SignUpUseCase {
   SignUpRepo signUpRepo;
+
   SignUpUseCase(this.signUpRepo);
 
   Future<Either<Failures, UserEntity>> call(RequestData requestData) =>

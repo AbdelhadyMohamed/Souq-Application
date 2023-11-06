@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce/features/signup/domain/entities/UserEntity.dart';
 
 import '../../../../core/error/failures.dart';
+import '../../../signup/data/models/UserModel.dart';
 
 abstract class LogInRepo {
-  Future<Either<Failures, UserEntity>> logIn(String email, String password);
+  Future<Either<Failures, UserModel>> logIn(String email, String password);
 }

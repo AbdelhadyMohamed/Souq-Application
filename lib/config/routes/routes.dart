@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import '../../features/signup/presentation/pages/signup.dart';
 
 class AppRoute {
-  static const String logIn = "/";
-  static const String signUp = "signup";
+  static const String logIn = "login";
+  static const String signUp = "/";
   static const String homeScreen = "homeScreen";
   static const String productList = "productList";
   static const String productDetails = "productDetails";
@@ -18,7 +18,7 @@ class Routes {
   static Route onGenerate(RouteSettings settings) {
     switch (settings.name) {
       case AppRoute.signUp:
-        return MaterialPageRoute(builder: (context) => const SignUpScreen());
+        return MaterialPageRoute(builder: (context) => SignUpScreen());
       case AppRoute.logIn:
         return MaterialPageRoute(builder: (context) => LogInScreen());
       case AppRoute.homeScreen:

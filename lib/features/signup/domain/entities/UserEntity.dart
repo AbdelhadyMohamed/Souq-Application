@@ -1,10 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class UserEntity extends Equatable {
-  UserEntity({
-    this.user,
-    this.token,
-  });
+  UserEntity({this.user, this.token});
 
   UserEntityData? user;
   String? token;
