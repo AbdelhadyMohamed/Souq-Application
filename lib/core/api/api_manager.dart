@@ -16,4 +16,9 @@ class ApiManager {
       {required String endPoint, required Map<String, dynamic> body}) {
     return dio.post(Constants.baseUrl + endPoint, data: body);
   }
+
+  Future<Response> putData(
+      {required String endPoint, required Map<String, dynamic> body}) {
+    return dio.put(Constants.baseUrl + endPoint, data: body);
+  }
 }

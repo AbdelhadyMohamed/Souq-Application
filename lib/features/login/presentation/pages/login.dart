@@ -118,6 +118,15 @@ class LogInScreen extends StatelessWidget {
                           controller: LoginBloc.get(context).passwordController,
                           obscureText: true,
                         )),
+                    SizedBox(height: 10.h),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoute.forgotPassword);
+                      },
+                      child: const Text("Forgot Password",
+                          textAlign: TextAlign.end,
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                    ),
                     Container(
                       padding: EdgeInsets.only(top: 40.h),
                       child: ElevatedButton(
