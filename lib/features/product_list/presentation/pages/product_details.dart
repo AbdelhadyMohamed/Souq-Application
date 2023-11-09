@@ -44,11 +44,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           Expanded(
               flex: 1,
               child: CarouselSlider.builder(
-                itemCount: product?.images?.length ?? 1,
+                itemCount: product?.images?.length,
                 itemBuilder: (context, index, realIndex) {
                   return Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(),
                         color: Colors.blueGrey),
                     child: CachedNetworkImage(
@@ -66,7 +66,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 options: CarouselOptions(
                   scrollPhysics: const FixedExtentScrollPhysics(),
                   height: MediaQuery.of(context).size.height * 0.33,
-                  aspectRatio: 16 / 9,
+                  aspectRatio: 16.h / 9.w,
                   viewportFraction: 0.8,
                   initialPage: 0,
                   enableInfiniteScroll: true,
@@ -86,13 +86,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(18.0),
+                    padding: EdgeInsets.all(18.w.h),
                     child: Row(children: [
                       Text(product?.brand?.name ?? "",
-                          style: const TextStyle(fontSize: 18)),
+                          style: TextStyle(fontSize: 18.sp)),
                       const Spacer(),
                       Text("EGP ${product?.price.toString() ?? ""}",
-                          style: TextStyle(fontSize: 18))
+                          style: TextStyle(fontSize: 18.sp))
                     ]),
                   ),
                   Padding(
@@ -108,23 +108,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             padding: EdgeInsets.symmetric(horizontal: 7.w),
                             child: Text(
                               "${product?.sold.toString() ?? " "} Sold",
-                              style: const TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 18.sp),
                             ),
                           )),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       Icon(Icons.star, color: AppColors.yellowColor),
                       Text(product?.ratingsAverage.toString() ?? "",
-                          style: const TextStyle(fontSize: 14)),
+                          style: TextStyle(fontSize: 14.sp)),
                       const SizedBox(width: 5),
                       Text("(${product?.ratingsQuantity.toString() ?? ""})",
-                          style: const TextStyle(fontSize: 14)),
+                          style: TextStyle(fontSize: 14.sp)),
                       SizedBox(width: 70.w),
                       Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 10.w, vertical: 7.h),
                           decoration: BoxDecoration(
                               color: AppColors.blueColor,
-                              borderRadius: BorderRadius.circular(20)),
+                              borderRadius: BorderRadius.circular(20.r)),
                           child: Row(children: [
                             Container(
                                 decoration: BoxDecoration(
@@ -133,11 +133,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         color: Colors.white, width: 2.w)),
                                 child: const Icon(Icons.remove,
                                     color: Colors.white)),
-                            const SizedBox(width: 20),
-                            const Text("1",
+                            SizedBox(width: 20.w),
+                            Text("1",
                                 style: TextStyle(
-                                    fontSize: 18, color: Colors.white)),
-                            const SizedBox(width: 20),
+                                    fontSize: 18.sp, color: Colors.white)),
+                            SizedBox(width: 20.w),
                             Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15.r),
@@ -148,7 +148,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ])),
                     ]),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
@@ -174,7 +174,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(18.0.w.h),
+                    padding: EdgeInsets.all(18.w.h),
                     child: Text("Size",
                         style: TextStyle(
                             fontSize: 18,
@@ -182,7 +182,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             color: AppColors.blueColor)),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.w.h),
                     child: Row(
                       children: [
                         Column(
@@ -215,9 +215,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   SizedBox(
                                     width: 45.w,
                                   ),
-                                  const Text(
+                                  Text(
                                     'Add to cart',
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(fontSize: 20.sp),
                                   )
                                 ],
                               )),

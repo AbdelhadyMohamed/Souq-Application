@@ -1,35 +1,25 @@
-import 'package:ecommerce/features/product_list/presentation/bloc/product_list_bloc.dart';
-import 'package:ecommerce/features/product_list/presentation/widgets/product_item.dart';
+import 'package:ecommerce/features/home/presentation/manager/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/app_colors.dart';
+import '../../widgets/category_item.dart';
 
-class ProductListScreen extends StatelessWidget {
-  const ProductListScreen({super.key});
+class HomeTab extends StatelessWidget {
+  const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductListBloc()..add(GetAllProducts()),
-      child: BlocBuilder<ProductListBloc, ProductListState>(
+      create: (context) => HomeBloc()..add(GetCategoriesEvent()),
+      child: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {},
         builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              leading: Container(
-                padding: EdgeInsets.only(left: 15.w),
-                height: 22.h,
-                width: 66.w,
-                child: Image.asset(
-                  "assets/images/route_logo.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            body: Column(
+          return Padding(
+            padding: EdgeInsets.all(8.0.w.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
                   children: [
@@ -53,7 +43,6 @@ class ProductListScreen extends StatelessWidget {
                             // controller: controller,
                             onTap: () {
                               // controller.openView();
-
                             },
                             onChanged: (_) {
                               // controller.openView();
@@ -74,21 +63,37 @@ class ProductListScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 24.h),
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: state.productModel?.data?.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: (192 / 237),
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16.h,
-                        crossAxisSpacing: 16.w),
-                    itemBuilder: (context, index) {
-                      return ProductItem(
-                          productModel: state.productModel, index: index);
-                    },
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
+                  child: Row(
+                    children: [
+                      Text("Categories",
+                          style: TextStyle(
+                              color: AppColors.darkBlueColor, fontSize: 22.sp)),
+                      const Spacer(),
+                      Text("view all",
+                          style: TextStyle(
+                              color: AppColors.darkBlueColor, fontSize: 18.sp)),
+                    ],
                   ),
-                )
+                ),
+                SizedBox(height: 16.h),
+                Expanded(
+                  child: SizedBox(
+                    child: GridView.builder(
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisSpacing: 30.w,
+                          crossAxisSpacing: 30.w,
+                          childAspectRatio: 4 / 3,
+                          crossAxisCount: 2),
+                      itemBuilder: (context, index) => CategoryItem(
+                          index: index, categoryEntity: state.categoryEntity),
+                      itemCount: state.categoryEntity?.data?.length ?? 10,
+                    ),
+                  ),
+                ),
               ],
             ),
           );

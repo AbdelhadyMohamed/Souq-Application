@@ -84,7 +84,7 @@ class LogInScreen extends StatelessWidget {
                         child: TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter a password';
+                              return 'Please enter your email';
                             } else {
                               return null;
                             }
