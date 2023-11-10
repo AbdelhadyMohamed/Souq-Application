@@ -5,7 +5,9 @@ abstract class HomeEvent {}
 
 class GetCategoriesEvent extends HomeEvent {}
 
+class GetBrandsEvent extends HomeEvent {}
+
 class TabChange extends HomeEvent {
-  final int tabIndex;
-  TabChange({required this.tabIndex});
+  final int index;
+  TabChange({required this.index});
 }

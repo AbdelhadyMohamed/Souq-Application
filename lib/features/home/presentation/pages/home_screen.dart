@@ -1,33 +1,48 @@
+import 'package:ecommerce/core/api/api_manager.dart';
+import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds_impl.dart';
+import 'package:ecommerce/features/home/data/repositories/home_repo_impl.dart';
+import 'package:ecommerce/features/home/domain/use_cases/get_brands_use_case.dart';
+import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:ecommerce/features/home/presentation/manager/home_bloc.dart';
-import 'package:ecommerce/features/home/presentation/pages/tabs/category_tab.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/favourite_tab.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/home_tab.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/profile_tab.dart';
-import 'package:ecommerce/features/home/presentation/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../core/utils/app_colors.dart';
+import '../../../product_list/presentation/bloc/product_list_bloc.dart';
+import '../../../product_list/presentation/pages/product_list.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-
-  final int index = 0;
+  final List<Widget> tabs = [
+    const HomeTab(),
+    const ProductListScreen(),
+    const FavouritesTab(),
+    const ProfileTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => HomeBloc())],
+      providers: [
+        BlocProvider(
+            create: (context) => HomeBloc(
+                  GetCategoriesUseCase(
+                      HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
+                  GetBrandsUseCase(
+                      HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
+                )
+                  ..add(GetCategoriesEvent())
+                  ..add(GetBrandsEvent())),
+        BlocProvider(
+          create: (context) => ProductListBloc()..add(GetAllProducts()),
+        )
+      ],
       child: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
-          final List tabs = [
-            const HomeTab(),
-            const CategoryTab(),
-            const FavouritesTab(),
-            const ProfileTab(),
-          ];
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
@@ -43,32 +58,114 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            body: tabs[state.index ?? 0],
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 5.h),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xFF004182)),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: Color(0xFF004182)),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.search,
+                                color: Color(0xFF06004E),
+                              ),
+                              hintText: 'what do you search for?',
+                              hintStyle: TextStyle(
+                                color: const Color(0x9906004E),
+                                fontSize: 14.sp,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w300,
+                              )),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Icon(
+                        Icons.shopping_cart,
+                        size: 30.0.sp,
+                        color: const Color(0xff004182),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 16.h,
+                ),
+                Expanded(
+                  child: tabs[HomeBloc.get(context).index],
+                )
+              ],
+            ),
             bottomNavigationBar: ClipRRect(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25.r),
-                  topRight: Radius.circular(25.r)),
+                topLeft: Radius.circular(25.r),
+                topRight: Radius.circular(25.r),
+              ),
               child: BottomNavigationBar(
                 onTap: (value) {
-                  HomeBloc.get(context).add(TabChange(tabIndex: value));
+                  HomeBloc.get(context).add(TabChange(index: value));
                 },
-                currentIndex: state.index ?? 0,
+                currentIndex: HomeBloc.get(context).index,
                 selectedItemColor: AppColors.darkBlueColor,
+                type: BottomNavigationBarType.shifting,
                 items: [
                   BottomNavigationBarItem(
-                      icon: const Icon(Icons.home),
+                      icon: state.index == 0
+                          ? Container(
+                              padding: EdgeInsets.all(5.w.h),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.white),
+                              child: const Icon(Icons.home_outlined))
+                          : const Icon(Icons.home_outlined),
                       label: "",
                       backgroundColor: AppColors.blueColor),
                   BottomNavigationBarItem(
-                      icon: const Icon(Icons.category_outlined),
+                      icon: state.index == 1
+                          ? Container(
+                              padding: EdgeInsets.all(5.w.h),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.white),
+                              child: const Icon(Icons.category_outlined))
+                          : const Icon(Icons.category_outlined),
                       label: "",
                       backgroundColor: AppColors.blueColor),
                   BottomNavigationBarItem(
-                      icon: const Icon(Icons.favorite_border),
+                      icon: state.index == 2
+                          ? Container(
+                              padding: EdgeInsets.all(5.w.h),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.white),
+                              child: const Icon(Icons.favorite_outline_sharp))
+                          : const Icon(Icons.favorite_outline_sharp),
                       label: "",
                       backgroundColor: AppColors.blueColor),
                   BottomNavigationBarItem(
-                      icon: const Icon(Icons.person_4_outlined),
+                      icon: state.index == 3
+                          ? Container(
+                              padding: EdgeInsets.all(5.w.h),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: Colors.white),
+                              child: const Icon(Icons.person_2_outlined))
+                          : const Icon(Icons.person_2_outlined),
                       label: "",
                       backgroundColor: AppColors.blueColor),
                 ],

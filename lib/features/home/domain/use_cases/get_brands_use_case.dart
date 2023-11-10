@@ -3,11 +3,10 @@ import 'package:ecommerce/core/error/failures.dart';
 import 'package:ecommerce/features/home/domain/entities/CategoryEntity.dart';
 import 'package:ecommerce/features/home/domain/repositories/home_repositories.dart';
 
-class HomeTabUseCase {
+class GetBrandsUseCase {
   HomeTabRepo homeTabRepo;
 
-  HomeTabUseCase(this.homeTabRepo);
+  GetBrandsUseCase(this.homeTabRepo);
 
-  Future<Either<Failures, CategoryEntity>> getCategories() =>
-      homeTabRepo.getCategories();
+  Future<Either<Failures, CategoryEntity>> call() => homeTabRepo.getBrands();
 }

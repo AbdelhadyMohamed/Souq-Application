@@ -6,4 +6,5 @@ class EndPoints {
   static const String resetCode = "/api/v1/auth/verifyResetCode";
   static const String resetPassword = "/api/v1/auth/resetPassword";
   static const String getCategories = "/api/v1/categories";
+  static const String getBrands = "/api/v1/brands";
 }

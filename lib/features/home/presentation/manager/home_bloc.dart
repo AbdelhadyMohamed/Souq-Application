@@ -1,45 +1,46 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:ecommerce/core/api/api_manager.dart';
 import 'package:ecommerce/core/error/failures.dart';
-import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds_impl.dart';
-import 'package:ecommerce/features/home/data/repositories/home_repo_impl.dart';
+
 import 'package:ecommerce/features/home/domain/entities/CategoryEntity.dart';
-import 'package:ecommerce/features/home/domain/use_cases/home_use_cases.dart';
-import 'package:ecommerce/features/home/presentation/pages/tabs/favourite_tab.dart';
+import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/data_sources/remote/remote_ds.dart';
-import '../../domain/repositories/home_repositories.dart';
-import '../pages/tabs/category_tab.dart';
-import '../pages/tabs/home_tab.dart';
-import '../pages/tabs/profile_tab.dart';
+import '../../domain/use_cases/get_brands_use_case.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  GetCategoriesUseCase getCategoriesUseCase;
+  GetBrandsUseCase getBrandsUseCase;
+  int index = 0;
   static HomeBloc get(context) => BlocProvider.of(context);
-  HomeBloc() : super(HomeInitial(index: 0)) {
+  HomeBloc(this.getCategoriesUseCase, this.getBrandsUseCase)
+      : super(HomeInitial(index: 0)) {
     on<HomeEvent>((event, emit) async {
       state.copyWith(screenStatus: ScreenStatus.loading);
       if (event is GetCategoriesEvent) {
-        ApiManager apiManager = ApiManager();
-        HomeTabRemoteDS homeTabRemoteDS = HomeTabRemoteDSImpl(apiManager);
-        HomeTabRepo homeTabRepo = HomeTabRepoImpl(homeTabRemoteDS);
-        HomeTabUseCase homeTabUseCase = HomeTabUseCase(homeTabRepo);
-        var result = await homeTabUseCase.getCategories();
+        var result = await getCategoriesUseCase.call();
         result.fold((l) {
-          emit(state.copyWith(screenStatus: ScreenStatus.failed, failures: l));
+          emit(state.copyWith(
+              screenStatus: ScreenStatus.categoryFailure, failures: l));
         }, (r) {
           emit(state.copyWith(
-              screenStatus: ScreenStatus.success, categoryEntity: r));
+              screenStatus: ScreenStatus.categorySuccess, categoryEntity: r));
+        });
+      } else if (event is GetBrandsEvent) {
+        var result = await getBrandsUseCase.call();
+        result.fold((l) {
+          emit(state.copyWith(
+              screenStatus: ScreenStatus.brandsFailure, failures: l));
+        }, (r) {
+          emit(state.copyWith(
+              screenStatus: ScreenStatus.brandsSuccess, brandsEntity: r));
         });
       } else if (event is TabChange) {
-        emit(HomeInitial(index: event.tabIndex));
+        index = event.index;
+        emit(state.copyWith(screenStatus: ScreenStatus.changeNavBar));
       }
     });
   }

@@ -19,11 +19,11 @@ class CategoryItem extends StatelessWidget {
     return Column(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(250.r),
+          borderRadius: BorderRadius.circular(100.r),
           child: SizedBox(
             child: CachedNetworkImage(
-              width: 200.w,
-              height: 200.h,
+              width: 80.w,
+              height: 80.h,
               fit: BoxFit.cover,
               imageUrl: category?.image ?? "",
               errorWidget: (context, url, error) =>
@@ -33,7 +33,7 @@ class CategoryItem extends StatelessWidget {
         ),
         SizedBox(height: 8.h),
         Text(category?.name ?? "",
-            style: TextStyle(fontSize: 22.sp, color: AppColors.darkBlueColor))
+            style: TextStyle(fontSize: 16.sp, color: AppColors.darkBlueColor))
       ],
     );
   }
