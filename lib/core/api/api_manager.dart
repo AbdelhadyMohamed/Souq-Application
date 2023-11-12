@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ecommerce/core/cache/shared_prefrence.dart';
 
 import '../utils/constants.dart';
 
@@ -13,12 +14,17 @@ class ApiManager {
   }
 
   Future<Response> postData(
-      {required String endPoint, required Map<String, dynamic> body}) {
-    return dio.post(Constants.baseUrl + endPoint, data: body);
+      {required String endPoint,
+      required Map<String, dynamic> body,
+      String? token}) {
+    return dio.post(Constants.baseUrl + endPoint,
+        data: body, options: Options(headers: {"token": token}));
   }
 
-  Future<Response> putData(
-      {required String endPoint, required Map<String, dynamic> body}) {
+  Future<Response> putData({
+    required String endPoint,
+    required Map<String, dynamic> body,
+  }) {
     return dio.put(Constants.baseUrl + endPoint, data: body);
   }
 }

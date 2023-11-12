@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import '../../features/signup/presentation/pages/signup.dart';
 
 class AppRoute {
-  static const String logIn = "logIn";
+  static const String logIn = "/";
   static const String signUp = "signup";
-  static const String homeScreen = "/";
+  static const String homeScreen = "homeScreen";
   static const String productList = "productList";
   static const String productDetails = "productDetails";
   static const String forgotPassword = "forgotPassword";

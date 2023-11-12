@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/api/api_manager.dart';
 import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds_impl.dart';
 import 'package:ecommerce/features/home/data/repositories/home_repo_impl.dart';
+import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_brands_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:ecommerce/features/home/presentation/manager/home_bloc.dart';
@@ -29,13 +30,14 @@ class HomeScreen extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) => HomeBloc(
-                  GetCategoriesUseCase(
-                      HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
-                  GetBrandsUseCase(
-                      HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
-                )
-                  ..add(GetCategoriesEvent())
-                  ..add(GetBrandsEvent())),
+                GetCategoriesUseCase(
+                    HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
+                GetBrandsUseCase(
+                    HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
+                AddToCartUseCase(
+                    HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))))
+              ..add(GetCategoriesEvent())
+              ..add(GetBrandsEvent())),
         BlocProvider(
           create: (context) => ProductListBloc()..add(GetAllProducts()),
         )
@@ -95,10 +97,16 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(
                         width: 20,
                       ),
-                      Icon(
-                        Icons.shopping_cart,
-                        size: 30.0.sp,
-                        color: const Color(0xff004182),
+                      InkWell(
+                        onTap: () {
+                          HomeBloc.get(context)
+                              .add(AddToCartEvent("6428ebc6dc1175abc65ca0b9"));
+                        },
+                        child: Icon(
+                          Icons.shopping_cart,
+                          size: 30.0.sp,
+                          color: const Color(0xff004182),
+                        ),
                       ),
                     ],
                   ),

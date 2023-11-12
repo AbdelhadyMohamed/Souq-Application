@@ -7,6 +7,11 @@ class GetCategoriesEvent extends HomeEvent {}
 
 class GetBrandsEvent extends HomeEvent {}
 
+class AddToCartEvent extends HomeEvent {
+  final String id;
+  AddToCartEvent(this.id);
+}
+
 class TabChange extends HomeEvent {
   final int index;
   TabChange({required this.index});

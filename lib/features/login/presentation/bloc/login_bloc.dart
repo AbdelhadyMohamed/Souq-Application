@@ -1,5 +1,7 @@
 import 'package:ecommerce/core/api/api_manager.dart';
 import 'package:ecommerce/core/error/failures.dart';
+import 'package:ecommerce/features/login/data/data_source/local/local_ds.dart';
+import 'package:ecommerce/features/login/data/data_source/local/local_ds_impl.dart';
 import 'package:ecommerce/features/login/data/data_source/remote/remote_ds_impl.dart';
 import 'package:ecommerce/features/login/data/repo/login_repo_impl.dart';
 import 'package:ecommerce/features/login/domain/use_case/login_use_case.dart';
@@ -26,7 +28,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ApiManager apiManager = ApiManager();
         LogInRemoteDataSource logInRemoteDataSource =
             LogInRemoteDataSourceImpl(apiManager);
-        LogInRepo logInRepo = LogInRepoImpl(logInRemoteDataSource);
+        LogInLocalDS logInLocalDS = LogInLocalDSImpl();
+        LogInRepo logInRepo =
+            LogInRepoImpl(logInRemoteDataSource, logInLocalDS);
         LogInUseCase logInUseCase = LogInUseCase(logInRepo);
         var result = await logInUseCase.call(
             emailController.text, passwordController.text);

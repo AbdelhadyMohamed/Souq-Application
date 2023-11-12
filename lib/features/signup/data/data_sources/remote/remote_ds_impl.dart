@@ -21,7 +21,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       Response response = await apiManager.postData(
           endPoint: EndPoints.signUp, body: requestData.toJson());
       UserModel userModel = UserModel.fromJson(response.data);
-      // print(userModel.token ?? "token not found");
       return Right(userModel);
     } on DioException catch (e) {
       Map<String, dynamic> response = jsonDecode(e.response.toString());
