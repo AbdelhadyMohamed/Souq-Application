@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce/core/error/failures.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../signup/data/models/UserModel.dart';
 import '../domain_repo/login_repo.dart';
 
+@injectable
 class LogInUseCase {
   LogInRepo logInRepo;
 

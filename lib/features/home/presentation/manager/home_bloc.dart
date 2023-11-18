@@ -5,6 +5,7 @@ import 'package:ecommerce/features/home/domain/entities/CategoryEntity.dart';
 import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 import '../../domain/use_cases/get_brands_use_case.dart';
@@ -12,11 +13,11 @@ import '../../domain/use_cases/get_brands_use_case.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
+@injectable
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   GetCategoriesUseCase getCategoriesUseCase;
   GetBrandsUseCase getBrandsUseCase;
   AddToCartUseCase addToCartUseCase;
-  int index = 0;
   static HomeBloc get(context) => BlocProvider.of(context);
   HomeBloc(
       this.getCategoriesUseCase, this.getBrandsUseCase, this.addToCartUseCase)
@@ -42,12 +43,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               screenStatus: ScreenStatus.brandsSuccess, brandsEntity: r));
         });
       } else if (event is TabChange) {
-        index = event.index;
-        emit(state.copyWith(screenStatus: ScreenStatus.changeNavBar));
+        emit(state.copyWith(
+            screenStatus: ScreenStatus.changeNavBar, index: event.index));
       } else if (event is AddToCartEvent) {
         var result = await addToCartUseCase.call(event.id);
         result.fold((l) {}, (r) {
-          print("Succes");
+          print("Success");
         });
       }
     });

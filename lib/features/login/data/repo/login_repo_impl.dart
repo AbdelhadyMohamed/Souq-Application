@@ -2,9 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:ecommerce/features/login/data/data_source/remote/remote_ds.dart';
 import 'package:ecommerce/features/login/domain/domain_repo/login_repo.dart';
 import 'package:ecommerce/features/signup/data/models/UserModel.dart';
+import 'package:injectable/injectable.dart';
 import '../../../../core/error/failures.dart';
 import '../data_source/local/local_ds.dart';
 
+@Injectable(as: LogInRepo)
 class LogInRepoImpl implements LogInRepo {
   LogInRemoteDataSource logInRemoteDataSource;
   LogInLocalDS localDS;

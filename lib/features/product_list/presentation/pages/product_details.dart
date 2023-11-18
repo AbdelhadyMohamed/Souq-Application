@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/core/utils/app_colors.dart';
-import 'package:ecommerce/features/home/presentation/manager/home_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../../../config.dart';
+import '../../../home/domain/use_cases/add_to_cart_use_case.dart';
+import '../../../home/domain/use_cases/get_brands_use_case.dart';
+import '../../../home/domain/use_cases/get_categories_use_case.dart';
+import '../../../home/presentation/manager/home_bloc.dart';
 import '../../data/models/ProductModel.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -17,9 +21,11 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   bool descTextShowFlag = false;
   bool isSelected = false;
+
   @override
   Widget build(BuildContext context) {
     var product = ModalRoute.of(context)!.settings.arguments as Data?;
+
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
@@ -210,8 +216,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   padding: EdgeInsets.symmetric(
                                       vertical: 15.h, horizontal: 32.w)),
                               onPressed: () {
-                                // HomeBloc.get(context)
-                                //     .add(AddToCartEvent(product?.id ?? ""));
+                                getIt<HomeBloc>()
+                                    .add(AddToCartEvent(product?.id ?? ""));
                               },
                               child: Row(
                                 children: [
@@ -219,9 +225,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   SizedBox(
                                     width: 45.w,
                                   ),
-                                  Text(
-                                    'Add to cart',
-                                    style: TextStyle(fontSize: 20.sp),
+                                  InkWell(
+                                    onTap: () {
+                                      if (product?.id != null) {
+                                        getIt<HomeBloc>()
+                                            .add(AddToCartEvent(product!.id!));
+                                      }
+                                    },
+                                    child: Text(
+                                      'Add to cart',
+                                      style: TextStyle(fontSize: 20.sp),
+                                    ),
                                   )
                                 ],
                               )),

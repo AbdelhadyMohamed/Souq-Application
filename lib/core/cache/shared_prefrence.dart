@@ -6,7 +6,7 @@ class CacheData {
     preferences = await SharedPreferences.getInstance();
   }
 
-  static Future<bool> saveData(String key, dynamic data) async {
+  static Future<bool> saveData(String key, String data) async {
     return preferences.setString(key, data);
   }
 

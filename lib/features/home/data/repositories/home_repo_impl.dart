@@ -6,7 +6,9 @@ import 'package:ecommerce/features/home/data/models/CartModel.dart';
 import 'package:ecommerce/features/home/data/models/CategoryBrandsModel.dart';
 import 'package:ecommerce/features/home/domain/entities/CategoryEntity.dart';
 import 'package:ecommerce/features/home/domain/repositories/home_repositories.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: HomeTabRepo)
 class HomeTabRepoImpl implements HomeTabRepo {
   HomeTabRemoteDS homeTabRemoteDS;
   HomeTabRepoImpl(this.homeTabRemoteDS);

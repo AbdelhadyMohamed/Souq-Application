@@ -9,6 +9,7 @@ import 'package:ecommerce/features/signup/domain/entities/UserEntity.dart';
 import 'package:ecommerce/features/signup/presentation/bloc/sign_up_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/data_source/remote/remote_ds.dart';
@@ -17,23 +18,19 @@ import '../../domain/domain_repo/login_repo.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static LoginBloc get(context) => BlocProvider.of(context);
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  LoginBloc() : super(LoginInitial()) {
+  LogInUseCase logInUseCase;
+  LoginBloc(this.logInUseCase) : super(LoginInitial()) {
     on<LoginEvent>((event, emit) async {
       if (event is LogInButtonEvent) {
         emit(state.copyWith(screenStatus: ScreenStatus.loading));
-        ApiManager apiManager = ApiManager();
-        LogInRemoteDataSource logInRemoteDataSource =
-            LogInRemoteDataSourceImpl(apiManager);
-        LogInLocalDS logInLocalDS = LogInLocalDSImpl();
-        LogInRepo logInRepo =
-            LogInRepoImpl(logInRemoteDataSource, logInLocalDS);
-        LogInUseCase logInUseCase = LogInUseCase(logInRepo);
-        var result = await logInUseCase.call(
-            emailController.text, passwordController.text);
+
+        var result =
+            await logInUseCase.call("ahmsedm3utti@gmail.com", "Ahmed@123");
         result.fold((l) {
           emit(state.copyWith(screenStatus: ScreenStatus.failure, failures: l));
         }, (r) {

@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce/config.dart';
 import 'package:ecommerce/config/routes/routes.dart';
 import 'package:ecommerce/features/product_list/data/models/ProductModel.dart';
-import 'package:ecommerce/features/product_list/presentation/pages/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../../../home/presentation/manager/home_bloc.dart';
 
 class ProductItem extends StatelessWidget {
   final int index;
@@ -18,10 +19,13 @@ class ProductItem extends StatelessWidget {
     var product = productModel?.data?[index];
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          AppRoute.productDetails,
-          arguments: product,
-        );
+        if (product != null) {
+          Navigator.pushNamed(
+            context,
+            AppRoute.productDetails,
+            arguments: product,
+          );
+        }
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -34,7 +38,6 @@ class ProductItem extends StatelessWidget {
             children: [
               Expanded(
                 child: Stack(
-                  // alignment: Alignment.centerRight,
                   children: [
                     Container(
                       decoration: BoxDecoration(
@@ -127,7 +130,15 @@ class ProductItem extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25.r),
                               color: AppColors.blueColor,
                             ),
-                            child: const Icon(Icons.add, color: Colors.white))
+                            child: InkWell(
+                                onTap: () {
+                                  if (product?.id != null) {
+                                    getIt<HomeBloc>()
+                                        .add(AddToCartEvent(product!.id!));
+                                  }
+                                },
+                                child:
+                                    const Icon(Icons.add, color: Colors.white)))
                       ],
                     ),
                   )

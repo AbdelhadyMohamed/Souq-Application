@@ -1,12 +1,12 @@
 import 'package:ecommerce/features/fogot_password/presentation/pages/reset_code.dart';
 import 'package:ecommerce/features/fogot_password/presentation/pages/reset_password.dart';
+import 'package:ecommerce/features/home/presentation/pages/cart_screen.dart';
 import 'package:ecommerce/features/home/presentation/pages/home_screen.dart';
 import 'package:ecommerce/features/fogot_password/presentation/pages/forgot_password.dart';
 import 'package:ecommerce/features/login/presentation/pages/login.dart';
 import 'package:ecommerce/features/product_list/presentation/pages/product_details.dart';
 import 'package:ecommerce/features/product_list/presentation/pages/product_list.dart';
 import 'package:flutter/material.dart';
-
 import '../../features/signup/presentation/pages/signup.dart';
 
 class AppRoute {
@@ -18,6 +18,7 @@ class AppRoute {
   static const String forgotPassword = "forgotPassword";
   static const String resetCode = "resetCode";
   static const String resetPassword = "resetPassword";
+  static const String cartScreen = "cart";
 }
 
 class Routes {
@@ -45,6 +46,9 @@ class Routes {
       case AppRoute.resetPassword:
         return MaterialPageRoute(
             builder: (context) => ResetPasswordScreen(), settings: settings);
+      case AppRoute.cartScreen:
+        return MaterialPageRoute(
+            builder: (context) => const CartScreen(), settings: settings);
       default:
         return MaterialPageRoute(
           builder: (context) {

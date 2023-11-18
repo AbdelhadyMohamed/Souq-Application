@@ -1,5 +1,7 @@
+import 'package:ecommerce/config.dart';
 import 'package:ecommerce/config/routes/routes.dart';
 import 'package:ecommerce/core/utils/app_colors.dart';
+import 'package:ecommerce/features/login/domain/use_case/login_use_case.dart';
 import 'package:ecommerce/features/signup/presentation/bloc/sign_up_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +16,7 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(),
+      create: (context) => LoginBloc(getIt<LogInUseCase>()),
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.screenStatus == ScreenStatus.loading) {
@@ -42,7 +44,7 @@ class LogInScreen extends StatelessWidget {
                 });
 
             Navigator.pushNamedAndRemoveUntil(
-                context, AppRoute.productList, (route) => false);
+                context, AppRoute.homeScreen, (route) => false);
           } else if (state.screenStatus == ScreenStatus.failure) {
             Navigator.pop(context);
             showDialog(
@@ -82,13 +84,13 @@ class LogInScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.white),
                         child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please enter your email';
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               labelText: 'Enter your email'),
@@ -105,13 +107,13 @@ class LogInScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.white),
                         child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a password';
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please enter a password';
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               labelText: 'Enter your password'),

@@ -10,18 +10,22 @@ enum ScreenStatus {
 class ProductListState {
   final ScreenStatus? screenStatus;
   final ProductModel? productModel;
+  final CartModel? cartModel;
   final Failures? failures;
 
-  ProductListState({this.screenStatus, this.productModel, this.failures});
+  ProductListState(
+      {this.screenStatus, this.productModel, this.failures, this.cartModel});
 
   ProductListState copyWith(
       {ScreenStatus? screenStatus,
       ProductModel? productModel,
-      Failures? failures}) {
+      Failures? failures,
+      CartModel? cartModel}) {
     return ProductListState(
         screenStatus: screenStatus ?? this.screenStatus,
         productModel: productModel ?? this.productModel,
-        failures: failures);
+        failures: failures,
+        cartModel: cartModel ?? this.cartModel);
   }
 }
 

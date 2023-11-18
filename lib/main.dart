@@ -4,11 +4,13 @@ import 'package:ecommerce/core/utils/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'config.dart';
 import 'config/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheData.init();
+  configureDependencies();
   Bloc.observer = MyBlocObserver();
   String? token = await CacheData.getData("token");
   String start;
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: start,
         onGenerateRoute: (settings) => Routes.onGenerate(settings),
       ),

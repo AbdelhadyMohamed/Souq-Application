@@ -8,9 +8,11 @@ import 'package:ecommerce/core/error/failures.dart';
 import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds.dart';
 import 'package:ecommerce/features/home/data/models/CartModel.dart';
 import 'package:ecommerce/features/home/data/models/CategoryBrandsModel.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../signup/data/models/ErrorModel.dart';
 
+@Injectable(as: HomeTabRemoteDS)
 class HomeTabRemoteDSImpl implements HomeTabRemoteDS {
   ApiManager apiManager;
   HomeTabRemoteDSImpl(this.apiManager);

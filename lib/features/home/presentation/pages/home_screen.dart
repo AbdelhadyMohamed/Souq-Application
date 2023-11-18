@@ -1,6 +1,4 @@
-import 'package:ecommerce/core/api/api_manager.dart';
-import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds_impl.dart';
-import 'package:ecommerce/features/home/data/repositories/home_repo_impl.dart';
+import 'package:ecommerce/config/routes/routes.dart';
 import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_brands_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
@@ -8,10 +6,13 @@ import 'package:ecommerce/features/home/presentation/manager/home_bloc.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/favourite_tab.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/home_tab.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/profile_tab.dart';
+import 'package:ecommerce/features/product_list/domain/use_cases/get_carts_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../config.dart';
 import '../../../../core/utils/app_colors.dart';
+import '../../../product_list/domain/use_cases/product_list_use_case.dart';
 import '../../../product_list/presentation/bloc/product_list_bloc.dart';
 import '../../../product_list/presentation/pages/product_list.dart';
 
@@ -29,21 +30,17 @@ class HomeScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => HomeBloc(
-                GetCategoriesUseCase(
-                    HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
-                GetBrandsUseCase(
-                    HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))),
-                AddToCartUseCase(
-                    HomeTabRepoImpl(HomeTabRemoteDSImpl(ApiManager()))))
+            create: (context) => HomeBloc(getIt<GetCategoriesUseCase>(),
+                getIt<GetBrandsUseCase>(), getIt<AddToCartUseCase>())
               ..add(GetCategoriesEvent())
               ..add(GetBrandsEvent())),
         BlocProvider(
-          create: (context) => ProductListBloc()..add(GetAllProducts()),
+          create: (context) => ProductListBloc(
+              getIt<ProductListUseCase>(), getIt<GetCartsUseCase>())
+            ..add(GetAllProducts()),
         )
       ],
-      child: BlocConsumer<HomeBloc, HomeState>(
-        listener: (context, state) {},
+      child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -99,8 +96,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          HomeBloc.get(context)
-                              .add(AddToCartEvent("6428ebc6dc1175abc65ca0b9"));
+                          Navigator.pushNamed(context, AppRoute.cartScreen);
                         },
                         child: Icon(
                           Icons.shopping_cart,
@@ -115,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 Expanded(
-                  child: tabs[HomeBloc.get(context).index],
+                  child: tabs[state.index ?? 0],
                 )
               ],
             ),
@@ -128,14 +124,14 @@ class HomeScreen extends StatelessWidget {
                 onTap: (value) {
                   HomeBloc.get(context).add(TabChange(index: value));
                 },
-                currentIndex: HomeBloc.get(context).index,
-                selectedItemColor: AppColors.darkBlueColor,
+                currentIndex: state.index ?? 0,
+                selectedItemColor: AppColors.blueColor,
                 type: BottomNavigationBarType.shifting,
                 items: [
                   BottomNavigationBarItem(
                       icon: state.index == 0
                           ? Container(
-                              padding: EdgeInsets.all(5.w.h),
+                              padding: EdgeInsets.all(7.w.h),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(40),
                                   color: Colors.white),
@@ -146,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                   BottomNavigationBarItem(
                       icon: state.index == 1
                           ? Container(
-                              padding: EdgeInsets.all(5.w.h),
+                              padding: EdgeInsets.all(7.w.h),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(40),
                                   color: Colors.white),
@@ -157,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                   BottomNavigationBarItem(
                       icon: state.index == 2
                           ? Container(
-                              padding: EdgeInsets.all(5.w.h),
+                              padding: EdgeInsets.all(7.w.h),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(40),
                                   color: Colors.white),
@@ -168,7 +164,7 @@ class HomeScreen extends StatelessWidget {
                   BottomNavigationBarItem(
                       icon: state.index == 3
                           ? Container(
-                              padding: EdgeInsets.all(5.w.h),
+                              padding: EdgeInsets.all(7.w.h),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(40),
                                   color: Colors.white),

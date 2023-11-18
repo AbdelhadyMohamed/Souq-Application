@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../../signup/domain/entities/UserEntity.dart';
 import '../../data/models/ProductModel.dart';
 import '../repositories/product_list_repo.dart';
 
+@injectable
 class ProductListUseCase {
   ProductListRepo productListRepo;
 

@@ -1,29 +1,25 @@
 import 'package:bloc/bloc.dart';
+import 'package:ecommerce/features/home/data/models/CartModel.dart';
+import 'package:ecommerce/features/product_list/domain/use_cases/get_carts_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
-
-import '../../../../core/api/api_manager.dart';
 import '../../../../core/error/failures.dart';
-import '../../data/data_sources/remote_ds/product_list_ds.dart';
-import '../../data/data_sources/remote_ds/product_list_ds_impl.dart';
 import '../../data/models/ProductModel.dart';
-import '../../data/repositories/product_list_repo_impl.dart';
-import '../../domain/repositories/product_list_repo.dart';
 import '../../domain/use_cases/product_list_use_case.dart';
 
 part 'product_list_event.dart';
 part 'product_list_state.dart';
 
+@injectable
 class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   static ProductListBloc get(context) => BlocProvider.of(context);
-  ProductListBloc() : super(ProductListInitial()) {
+  ProductListUseCase productListUseCase;
+  GetCartsUseCase getCartsUseCase;
+  ProductListBloc(this.productListUseCase, this.getCartsUseCase)
+      : super(ProductListInitial()) {
     on<ProductListEvent>((event, emit) async {
       if (event is GetAllProducts) {
-        ApiManager apiManager = ApiManager();
-        ProductRemoteDS productRemoteDS = ProductRemoteDSImpl(apiManager);
-        ProductListRepo productListRepo = ProductListRepoImpl(productRemoteDS);
-        ProductListUseCase productListUseCase =
-            ProductListUseCase(productListRepo);
         var result = await productListUseCase.call();
         result.fold((l) {
           emit(
@@ -31,6 +27,15 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
         }, (r) {
           emit(state.copyWith(
               screenStatus: ScreenStatus.successfully, productModel: r));
+        });
+      } else if (event is GetCart) {
+        var result = await getCartsUseCase.call();
+        result.fold((l) {
+          emit(
+              state.copyWith(screenStatus: ScreenStatus.failures, failures: l));
+        }, (r) {
+          emit(state.copyWith(
+              screenStatus: ScreenStatus.successfully, cartModel: r));
         });
       }
     });

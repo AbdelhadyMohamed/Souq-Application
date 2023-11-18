@@ -27,12 +27,14 @@ class HomeState {
       {ScreenStatus? screenStatus,
       CategoryEntity? categoryEntity,
       CategoryEntity? brandsEntity,
-      Failures? failures}) {
+      Failures? failures,
+      int? index}) {
     return HomeState(
         screenStatus: screenStatus ?? this.screenStatus,
         categoryEntity: categoryEntity ?? this.categoryEntity,
         failures: failures ?? this.failures,
-        brandsEntity: brandsEntity ?? this.brandsEntity);
+        brandsEntity: brandsEntity ?? this.brandsEntity,
+        index: index ?? 0);
   }
 }
 

@@ -7,10 +7,12 @@ import 'package:ecommerce/core/api/end_points.dart';
 import 'package:ecommerce/core/cache/shared_prefrence.dart';
 import 'package:ecommerce/features/login/data/data_source/remote/remote_ds.dart';
 import 'package:ecommerce/features/signup/data/models/UserModel.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../../core/error/failures.dart';
 import '../../../../signup/data/models/ErrorModel.dart';
 
+@Injectable(as: LogInRemoteDataSource)
 class LogInRemoteDataSourceImpl implements LogInRemoteDataSource {
   ApiManager apiManager;
 
