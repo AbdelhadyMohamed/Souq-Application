@@ -22,7 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   AddToCartUseCase addToCartUseCase;
   GetWishListItemsUseCase getWishListItemsUseCase;
   static HomeBloc get(context) => BlocProvider.of(context);
-  static List<String>? getIds;
+  static List<String>? getIds = [];
   HomeBloc(this.getCategoriesUseCase, this.getBrandsUseCase,
       this.addToCartUseCase, this.getWishListItemsUseCase)
       : super(HomeInitial(index: 0)) {
@@ -60,7 +60,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           emit(state.copyWith(failures: l));
         }, (r) {
           for (int i = 0; i < r.data!.length; i++) {
-            HomeBloc.getIds?.add(r.data![i].id!);
+            getIds?.add(r.data![i].id!);
+            // print(getIds?[i]);
           }
           emit(state.copyWith(wishListModel: r));
         });

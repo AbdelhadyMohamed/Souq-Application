@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import '../../../../core/error/failures.dart';
 import '../../data/models/ProductModel.dart';
 import '../../domain/use_cases/add_to_wish_list_use_case.dart';
+import '../../domain/use_cases/del_from_use_case.dart';
 import '../../domain/use_cases/product_list_use_case.dart';
 
 part 'product_list_event.dart';
@@ -18,8 +19,9 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   ProductListUseCase productListUseCase;
   GetCartsUseCase getCartsUseCase;
   AddToWishListUseCase addToWishListUseCase;
-  ProductListBloc(
-      this.productListUseCase, this.getCartsUseCase, this.addToWishListUseCase)
+  DelFormWishListUseCase delFormWishListUseCase;
+  ProductListBloc(this.productListUseCase, this.getCartsUseCase,
+      this.addToWishListUseCase, this.delFormWishListUseCase)
       : super(ProductListInitial()) {
     on<ProductListEvent>((event, emit) async {
       if (event is GetAllProducts) {
@@ -45,6 +47,8 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
             screenStatus: ScreenStatus.successfully, isFav: (event.isFave)));
       } else if (event is AddToWishList) {
         addToWishListUseCase.call(event.productId);
+      } else if (event is DelFromWishList) {
+        delFormWishListUseCase.call(event.productId);
       }
     });
   }

@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../config.dart';
 import '../../../../core/utils/app_colors.dart';
+import '../../../product_list/domain/use_cases/del_from_use_case.dart';
 import '../../../product_list/domain/use_cases/product_list_use_case.dart';
 import '../../../product_list/presentation/bloc/product_list_bloc.dart';
 import '../../../product_list/presentation/pages/product_list.dart';
@@ -41,8 +42,11 @@ class HomeScreen extends StatelessWidget {
               ..add(GetBrandsEvent())
               ..add(GetWishList())),
         BlocProvider(
-          create: (context) => ProductListBloc(getIt<ProductListUseCase>(),
-              getIt<GetCartsUseCase>(), getIt<AddToWishListUseCase>())
+          create: (context) => ProductListBloc(
+              getIt<ProductListUseCase>(),
+              getIt<GetCartsUseCase>(),
+              getIt<AddToWishListUseCase>(),
+              getIt<DelFormWishListUseCase>())
             ..add(GetAllProducts()),
         )
       ],

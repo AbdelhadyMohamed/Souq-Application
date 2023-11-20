@@ -25,18 +25,19 @@ class ProductListScreen extends StatelessWidget {
                     mainAxisSpacing: 16.h,
                     crossAxisSpacing: 16.w),
                 itemBuilder: (context, index) {
-                  getIt<HomeBloc>().add(GetWishList());
-                  print(HomeBloc.getIds);
+                  // getIt<HomeBloc>().add(GetWishList());
+                  // print(HomeBloc.getIds);
                   fav = HomeBloc.getIds
                           ?.contains(state.productModel?.data?[index].id) ??
                       false;
                   // print(HomeBloc.getIds?[0]);
 
                   return BlocProvider(
-                    create: (context) =>
-                        getIt<ProductListBloc>()..add(ChangeFavIcon(fav)),
+                    create: (context) => getIt<ProductListBloc>(),
                     child: ProductItem(
-                        productModel: state.productModel, index: index),
+                        productModel: state.productModel,
+                        index: index,
+                        fav: fav),
                   );
                 },
               ),

@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/product_list/domain/use_cases/add_to_wish_list_use_case.dart';
+import 'package:ecommerce/features/product_list/domain/use_cases/del_from_use_case.dart';
 import 'package:ecommerce/features/product_list/domain/use_cases/get_carts_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,8 +17,11 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProductListBloc(getIt<ProductListUseCase>(),
-          getIt<GetCartsUseCase>(), getIt<AddToWishListUseCase>())
+      create: (context) => ProductListBloc(
+          getIt<ProductListUseCase>(),
+          getIt<GetCartsUseCase>(),
+          getIt<AddToWishListUseCase>(),
+          getIt<DelFormWishListUseCase>())
         ..add(GetCart()),
       child: BlocBuilder<ProductListBloc, ProductListState>(
         builder: (context, state) {

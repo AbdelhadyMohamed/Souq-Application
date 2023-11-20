@@ -55,4 +55,18 @@ class ProductRemoteDSImpl implements ProductRemoteDS {
       print(e.toString());
     }
   }
+
+  @override
+  Future<void> delFromWishList(String productId, String token) async {
+    try {
+      apiManager.delData(
+        endPoint: EndPoints.deleteFromWishList,
+        token: token,
+        productId: productId,
+        body: null,
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

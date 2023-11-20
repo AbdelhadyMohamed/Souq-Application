@@ -17,3 +17,9 @@ class AddToWishList extends ProductListEvent {
 
   AddToWishList(this.productId);
 }
+
+class DelFromWishList extends ProductListEvent {
+  final String productId;
+
+  DelFromWishList(this.productId);
+}

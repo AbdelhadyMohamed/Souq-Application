@@ -11,4 +11,5 @@ class EndPoints {
   static const String getCart = "/api/v1/cart";
   static const String addToWishList = "/api/v1/wishlist";
   static const String getWishList = "/api/v1/wishlist";
+  static const String deleteFromWishList = "/api/v1/wishlist/";
 }

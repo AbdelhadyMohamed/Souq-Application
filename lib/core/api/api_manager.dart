@@ -32,4 +32,13 @@ class ApiManager {
   }) {
     return dio.put(Constants.baseUrl + endPoint, data: body);
   }
+
+  Future<Response> delData(
+      {required String endPoint,
+      required Map<String, dynamic>? body,
+      String? token,
+      String? productId}) {
+    return dio.delete(Constants.baseUrl + endPoint + productId!,
+        options: Options(headers: {"token": token}));
+  }
 }

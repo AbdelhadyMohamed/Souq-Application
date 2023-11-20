@@ -33,7 +33,7 @@ class ProductListState {
       productModel: productModel ?? this.productModel,
       failures: failures,
       cartModel: cartModel ?? this.cartModel,
-      isFav: isFav ?? this.isFav,
+      isFav: isFav,
     );
   }
 }

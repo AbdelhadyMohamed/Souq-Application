@@ -13,8 +13,12 @@ import '../../../home/presentation/manager/home_bloc.dart';
 class ProductItem extends StatelessWidget {
   final int index;
   final ProductModel? productModel;
-  const ProductItem(
-      {required this.index, required this.productModel, super.key});
+  late bool fav;
+  ProductItem(
+      {required this.index,
+      required this.productModel,
+      required this.fav,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +76,18 @@ class ProductItem extends StatelessWidget {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  ProductListBloc.get(context).add(
-                                      ChangeFavIcon((!(state.isFav ?? false))));
+                                  fav
+                                      ? ProductListBloc.get(context).add(
+                                          DelFromWishList(product?.id ?? ""))
+                                      : ProductListBloc.get(context).add(
+                                          AddToWishList(product?.id ?? ""));
                                   ProductListBloc.get(context)
-                                      .add(AddToWishList(product?.id ?? ""));
+                                      .add(ChangeFavIcon((!(fav))));
+                                  fav = !fav;
+                                  state.isFav = fav;
                                 },
                                 child: Icon(
-                                  state.isFav ?? false
+                                  state.isFav ?? fav
                                       ? Icons.favorite
                                       : Icons.favorite_outline,
                                   color: AppColors.blueColor,
