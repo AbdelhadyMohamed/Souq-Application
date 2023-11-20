@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/features/home/data/models/CartModel.dart';
@@ -35,8 +33,6 @@ class ProductRemoteDSImpl implements ProductRemoteDS {
     try {
       Response response = await apiManager.getData(
           endPoint: EndPoints.getCart, data: null, token: token);
-      // Map<String, dynamic> result = jsonDecode(response.data.toString());
-
       CartModel cartModel = CartModel.fromJson(response.data);
       print(cartModel.data ?? "no results");
 
@@ -45,6 +41,18 @@ class ProductRemoteDSImpl implements ProductRemoteDS {
       print(e.toString());
 
       return Left(RemoteFailures(e.toString()));
+    }
+  }
+
+  @override
+  Future<void> addToWishList(String token, String productId) async {
+    try {
+      apiManager.postData(
+          endPoint: EndPoints.addToWishList,
+          token: token,
+          body: {"productId": productId});
+    } catch (e) {
+      print(e.toString());
     }
   }
 }

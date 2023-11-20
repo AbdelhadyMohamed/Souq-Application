@@ -14,6 +14,7 @@ class HomeState {
   final ScreenStatus? screenStatus;
   final CategoryEntity? categoryEntity;
   final CategoryEntity? brandsEntity;
+  final WishListModel? wishListModel;
   final Failures? failures;
   final int? index;
 
@@ -22,19 +23,22 @@ class HomeState {
       this.categoryEntity,
       this.brandsEntity,
       this.failures,
-      this.index});
+      this.index,
+      this.wishListModel});
   HomeState copyWith(
       {ScreenStatus? screenStatus,
       CategoryEntity? categoryEntity,
       CategoryEntity? brandsEntity,
       Failures? failures,
-      int? index}) {
+      int? index,
+      WishListModel? wishListModel}) {
     return HomeState(
         screenStatus: screenStatus ?? this.screenStatus,
         categoryEntity: categoryEntity ?? this.categoryEntity,
         failures: failures ?? this.failures,
         brandsEntity: brandsEntity ?? this.brandsEntity,
-        index: index ?? 0);
+        index: index ?? 0,
+        wishListModel: wishListModel ?? this.wishListModel);
   }
 }
 

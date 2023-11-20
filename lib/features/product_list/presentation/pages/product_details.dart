@@ -58,15 +58,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         borderRadius: BorderRadius.circular(16.r),
                         border: Border.all(),
                         color: Colors.blueGrey),
-                    child: CachedNetworkImage(
-                      imageUrl: product?.images?[index] ?? "",
-                      // fit: BoxFit.fitWidth,
-                      fit: BoxFit.fill,
-                      width: 398.w,
-                      height: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: CachedNetworkImage(
+                        imageUrl: product?.images?[index] ?? "",
+                        // fit: BoxFit.fitWidth,
+                        fit: BoxFit.cover,
+                        width: 398.w,
+                        height: double.infinity,
 
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error_outline),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error_outline),
+                      ),
                     ),
                   );
                 },

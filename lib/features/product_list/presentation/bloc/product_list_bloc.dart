@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import '../../../../core/error/failures.dart';
 import '../../data/models/ProductModel.dart';
+import '../../domain/use_cases/add_to_wish_list_use_case.dart';
 import '../../domain/use_cases/product_list_use_case.dart';
 
 part 'product_list_event.dart';
@@ -16,7 +17,9 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   static ProductListBloc get(context) => BlocProvider.of(context);
   ProductListUseCase productListUseCase;
   GetCartsUseCase getCartsUseCase;
-  ProductListBloc(this.productListUseCase, this.getCartsUseCase)
+  AddToWishListUseCase addToWishListUseCase;
+  ProductListBloc(
+      this.productListUseCase, this.getCartsUseCase, this.addToWishListUseCase)
       : super(ProductListInitial()) {
     on<ProductListEvent>((event, emit) async {
       if (event is GetAllProducts) {
@@ -37,6 +40,11 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
           emit(state.copyWith(
               screenStatus: ScreenStatus.successfully, cartModel: r));
         });
+      } else if (event is ChangeFavIcon) {
+        emit(state.copyWith(
+            screenStatus: ScreenStatus.successfully, isFav: (event.isFave)));
+      } else if (event is AddToWishList) {
+        addToWishListUseCase.call(event.productId);
       }
     });
   }

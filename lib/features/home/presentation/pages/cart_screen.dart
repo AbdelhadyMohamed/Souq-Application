@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/product_list/domain/use_cases/add_to_wish_list_use_case.dart';
 import 'package:ecommerce/features/product_list/domain/use_cases/get_carts_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,9 +16,9 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          ProductListBloc(getIt<ProductListUseCase>(), getIt<GetCartsUseCase>())
-            ..add(GetCart()),
+      create: (context) => ProductListBloc(getIt<ProductListUseCase>(),
+          getIt<GetCartsUseCase>(), getIt<AddToWishListUseCase>())
+        ..add(GetCart()),
       child: BlocBuilder<ProductListBloc, ProductListState>(
         builder: (context, state) {
           return Scaffold(
@@ -49,15 +50,27 @@ class CartScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemBuilder: (context, index) =>
-                        CartItem(cartModel: state.cartModel, index: index),
+                    itemBuilder: (context, index) {
+                      return CartItem(cartModel: state.cartModel, index: index);
+                    },
                     itemCount: state.cartModel?.data?.products?.length,
                   ),
                 ),
                 Row(
                   children: [
                     SizedBox(width: 20.w),
-                    const Text("total price 3300 EGP"),
+                    Row(
+                      children: [
+                        const Text(
+                          "total price: ",
+                          style: TextStyle(fontSize: 17),
+                        ),
+                        Text(
+                          "${state.cartModel?.data?.totalCartPrice} Egp",
+                          style: const TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
                     const Spacer(),
                     Container(
                       decoration: BoxDecoration(

@@ -4,7 +4,7 @@ import 'package:ecommerce/core/error/failures.dart';
 import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds.dart';
 import 'package:ecommerce/features/home/data/models/CartModel.dart';
 import 'package:ecommerce/features/home/data/models/CategoryBrandsModel.dart';
-import 'package:ecommerce/features/home/domain/entities/CategoryEntity.dart';
+import 'package:ecommerce/features/home/data/models/WishListModel.dart';
 import 'package:ecommerce/features/home/domain/repositories/home_repositories.dart';
 import 'package:injectable/injectable.dart';
 
@@ -25,6 +25,12 @@ class HomeTabRepoImpl implements HomeTabRepo {
   Future<Either<Failures, CartModel>> addToCart(String productId) async {
     String? token = await getToken();
     return homeTabRemoteDS.addToCart(productId, token ?? "");
+  }
+
+  @override
+  Future<Either<Failures, WishListModel>> getWishList() async {
+    String? token = await getToken();
+    return homeTabRemoteDS.getWishList(token ?? "");
   }
 
   Future<String?> getToken() async {

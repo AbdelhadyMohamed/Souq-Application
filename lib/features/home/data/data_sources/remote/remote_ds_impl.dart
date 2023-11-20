@@ -8,6 +8,7 @@ import 'package:ecommerce/core/error/failures.dart';
 import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds.dart';
 import 'package:ecommerce/features/home/data/models/CartModel.dart';
 import 'package:ecommerce/features/home/data/models/CategoryBrandsModel.dart';
+import 'package:ecommerce/features/home/data/models/WishListModel.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../signup/data/models/ErrorModel.dart';
@@ -59,6 +60,19 @@ class HomeTabRemoteDSImpl implements HomeTabRemoteDS {
       ErrorModel errorModel = ErrorModel.fromJson(response);
       print(errorModel.message ?? "");
       return Left(RemoteFailures(errorModel.message.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, WishListModel>> getWishList(String token) async {
+    try {
+      Response response = await apiManager.getData(
+          endPoint: EndPoints.getWishList, data: null, token: token);
+
+      WishListModel wishListModel = WishListModel.fromJson(response.data);
+      return Right(wishListModel);
+    } on DioException catch (e) {
+      return Left(RemoteFailures(e.toString()));
     }
   }
 }

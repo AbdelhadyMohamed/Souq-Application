@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce/core/error/failures.dart';
+import 'package:ecommerce/features/home/data/models/WishListModel.dart';
 
 import 'package:ecommerce/features/home/domain/entities/CategoryEntity.dart';
 import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.dart';
+import 'package:ecommerce/features/home/domain/use_cases/get_all_wish_list_items_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -18,9 +20,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   GetCategoriesUseCase getCategoriesUseCase;
   GetBrandsUseCase getBrandsUseCase;
   AddToCartUseCase addToCartUseCase;
+  GetWishListItemsUseCase getWishListItemsUseCase;
   static HomeBloc get(context) => BlocProvider.of(context);
-  HomeBloc(
-      this.getCategoriesUseCase, this.getBrandsUseCase, this.addToCartUseCase)
+  static List<String>? getIds;
+  HomeBloc(this.getCategoriesUseCase, this.getBrandsUseCase,
+      this.addToCartUseCase, this.getWishListItemsUseCase)
       : super(HomeInitial(index: 0)) {
     on<HomeEvent>((event, emit) async {
       state.copyWith(screenStatus: ScreenStatus.loading);
@@ -49,6 +53,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         var result = await addToCartUseCase.call(event.id);
         result.fold((l) {}, (r) {
           print("Success");
+        });
+      } else if (event is GetWishList) {
+        var result = await getWishListItemsUseCase.call();
+        result.fold((l) {
+          emit(state.copyWith(failures: l));
+        }, (r) {
+          for (int i = 0; i < r.data!.length; i++) {
+            HomeBloc.getIds?.add(r.data![i].id!);
+          }
+          emit(state.copyWith(wishListModel: r));
         });
       }
     });

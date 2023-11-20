@@ -9,4 +9,6 @@ class EndPoints {
   static const String getBrands = "/api/v1/brands";
   static const String addToCart = "/api/v1/cart";
   static const String getCart = "/api/v1/cart";
+  static const String addToWishList = "/api/v1/wishlist";
+  static const String getWishList = "/api/v1/wishlist";
 }

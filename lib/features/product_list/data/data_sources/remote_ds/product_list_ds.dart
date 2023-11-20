@@ -7,4 +7,5 @@ import '../../models/ProductModel.dart';
 abstract class ProductRemoteDS {
   Future<Either<Failures, ProductModel>> getProducts();
   Future<Either<Failures, CartModel>> getCarts(String token);
+  void addToWishList(String token, String productId);
 }

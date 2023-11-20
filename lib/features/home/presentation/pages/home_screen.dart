@@ -1,11 +1,13 @@
 import 'package:ecommerce/config/routes/routes.dart';
 import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.dart';
+import 'package:ecommerce/features/home/domain/use_cases/get_all_wish_list_items_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_brands_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
 import 'package:ecommerce/features/home/presentation/manager/home_bloc.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/favourite_tab.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/home_tab.dart';
 import 'package:ecommerce/features/home/presentation/pages/tabs/profile_tab.dart';
+import 'package:ecommerce/features/product_list/domain/use_cases/add_to_wish_list_use_case.dart';
 import 'package:ecommerce/features/product_list/domain/use_cases/get_carts_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,13 +32,17 @@ class HomeScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => HomeBloc(getIt<GetCategoriesUseCase>(),
-                getIt<GetBrandsUseCase>(), getIt<AddToCartUseCase>())
+            create: (context) => HomeBloc(
+                getIt<GetCategoriesUseCase>(),
+                getIt<GetBrandsUseCase>(),
+                getIt<AddToCartUseCase>(),
+                getIt<GetWishListItemsUseCase>())
               ..add(GetCategoriesEvent())
-              ..add(GetBrandsEvent())),
+              ..add(GetBrandsEvent())
+              ..add(GetWishList())),
         BlocProvider(
-          create: (context) => ProductListBloc(
-              getIt<ProductListUseCase>(), getIt<GetCartsUseCase>())
+          create: (context) => ProductListBloc(getIt<ProductListUseCase>(),
+              getIt<GetCartsUseCase>(), getIt<AddToWishListUseCase>())
             ..add(GetAllProducts()),
         )
       ],
@@ -60,7 +66,7 @@ class HomeScreen extends StatelessWidget {
             body: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Row(
                     children: [
                       Expanded(

@@ -16,3 +16,5 @@ class TabChange extends HomeEvent {
   final int index;
   TabChange({required this.index});
 }
+
+class GetWishList extends HomeEvent {}
