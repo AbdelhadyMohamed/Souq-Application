@@ -29,8 +29,10 @@ class ApiManager {
   Future<Response> putData({
     required String endPoint,
     required Map<String, dynamic> body,
+    String? token,
   }) {
-    return dio.put(Constants.baseUrl + endPoint, data: body);
+    return dio.put(Constants.baseUrl + endPoint,
+        data: body, options: Options(headers: {"token": token}));
   }
 
   Future<Response> delData(

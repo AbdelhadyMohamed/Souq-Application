@@ -21,6 +21,8 @@ class LogInRepoImpl implements LogInRepo {
       if (result.isRight()) {
         result.fold((l) => null, (r) {
           cacheToken(r.token ?? "");
+          cacheUserName(r.user?.name ?? "");
+          cacheUserEmail(r.user?.email ?? "");
         });
       }
       return result;
@@ -31,5 +33,13 @@ class LogInRepoImpl implements LogInRepo {
 
   void cacheToken(String token) async {
     await localDS.cacheToken(token);
+  }
+
+  void cacheUserName(String name) async {
+    await localDS.cacheUserName(name);
+  }
+
+  void cacheUserEmail(String email) async {
+    await localDS.cacheUserEmail(email);
   }
 }

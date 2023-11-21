@@ -1,6 +1,7 @@
 import 'package:ecommerce/features/fogot_password/presentation/pages/reset_code.dart';
 import 'package:ecommerce/features/fogot_password/presentation/pages/reset_password.dart';
 import 'package:ecommerce/features/home/presentation/pages/cart_screen.dart';
+import 'package:ecommerce/features/home/presentation/pages/change_password_screen.dart';
 import 'package:ecommerce/features/home/presentation/pages/home_screen.dart';
 import 'package:ecommerce/features/fogot_password/presentation/pages/forgot_password.dart';
 import 'package:ecommerce/features/login/presentation/pages/login.dart';
@@ -19,6 +20,7 @@ class AppRoute {
   static const String resetCode = "resetCode";
   static const String resetPassword = "resetPassword";
   static const String cartScreen = "cart";
+  static const String changePassword = "changPassword";
 }
 
 class Routes {
@@ -49,6 +51,10 @@ class Routes {
       case AppRoute.cartScreen:
         return MaterialPageRoute(
             builder: (context) => const CartScreen(), settings: settings);
+      case AppRoute.changePassword:
+        return MaterialPageRoute(
+            builder: (context) => ChangePasswordScreen(), settings: settings);
+
       default:
         return MaterialPageRoute(
           builder: (context) {

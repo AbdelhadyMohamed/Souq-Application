@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/home/domain/use_cases/change_password_use_case.dart';
 import 'package:ecommerce/features/home/presentation/manager/home_bloc.dart';
 import 'package:ecommerce/features/home/presentation/widgets/wish_list_item.dart';
 import 'package:flutter/material.dart';
@@ -16,20 +17,25 @@ class FavouritesTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeBloc(
-          getIt<GetCategoriesUseCase>(),
-          getIt<GetBrandsUseCase>(),
-          getIt<AddToCartUseCase>(),
-          getIt<GetWishListItemsUseCase>())
-        ..add(GetWishList()),
+        getIt<GetCategoriesUseCase>(),
+        getIt<GetBrandsUseCase>(),
+        getIt<AddToCartUseCase>(),
+        getIt<GetWishListItemsUseCase>(),
+        getIt<ChangePasswordUseCase>(),
+      )..add(GetWishList()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              return WishListItem(
-                  wishListModel: state.wishListModel, index: index);
-            },
-            itemCount: state.wishListModel?.data?.length,
-          );
+          return state.screenStatus == HomeScreenStatus.loading
+              ? const Center(child: CircularProgressIndicator())
+              : state.screenStatus == HomeScreenStatus.wishListSuccess
+                  ? ListView.builder(
+                      itemBuilder: (context, index) {
+                        return WishListItem(
+                            wishListModel: state.wishListModel, index: index);
+                      },
+                      itemCount: state.wishListModel?.data?.length,
+                    )
+                  : const SizedBox();
         },
       ),
     );

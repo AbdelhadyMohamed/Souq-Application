@@ -30,7 +30,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(state.copyWith(screenStatus: ScreenStatus.loading));
 
         var result =
-            await logInUseCase.call("ahmsedm3utti@gmail.com", "Ahmed@123");
+            await logInUseCase.call("abdalhadymohamed36@gmail.com", "qwe123A@");
         result.fold((l) {
           emit(state.copyWith(screenStatus: ScreenStatus.failure, failures: l));
         }, (r) {

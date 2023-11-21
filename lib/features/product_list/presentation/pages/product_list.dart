@@ -11,40 +11,40 @@ class ProductListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductListBloc, ProductListState>(
-      builder: (context, state) {
-        bool fav = false;
-        return Column(
-          children: [
-            Expanded(
-              child: GridView.builder(
-                itemCount: state.productModel?.data?.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: (192 / 237),
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16.h,
-                    crossAxisSpacing: 16.w),
-                itemBuilder: (context, index) {
-                  // getIt<HomeBloc>().add(GetWishList());
-                  // print(HomeBloc.getIds);
-                  fav = HomeBloc.getIds
-                          ?.contains(state.productModel?.data?[index].id) ??
-                      false;
-                  // print(HomeBloc.getIds?[0]);
+    return BlocProvider(
+      create: (context) => getIt<HomeBloc>()..add(GetWishList()),
+      child: BlocBuilder<ProductListBloc, ProductListState>(
+        builder: (context, state) {
+          bool fav = false;
+          return Column(
+            children: [
+              Expanded(
+                child: GridView.builder(
+                  itemCount: state.productModel?.data?.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: (192 / 237),
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16.h,
+                      crossAxisSpacing: 16.w),
+                  itemBuilder: (context, index) {
+                    fav = HomeBloc.getIds
+                            ?.contains(state.productModel?.data?[index].id) ??
+                        false;
 
-                  return BlocProvider(
-                    create: (context) => getIt<ProductListBloc>(),
-                    child: ProductItem(
-                        productModel: state.productModel,
-                        index: index,
-                        fav: fav),
-                  );
-                },
-              ),
-            )
-          ],
-        );
-      },
+                    return BlocProvider(
+                      create: (context) => getIt<ProductListBloc>(),
+                      child: ProductItem(
+                          productModel: state.productModel,
+                          index: index,
+                          fav: fav),
+                    );
+                  },
+                ),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }

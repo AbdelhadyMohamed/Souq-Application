@@ -13,4 +13,8 @@ class CacheData {
   static Future<String?> getData(String key) async {
     return preferences.getString(key);
   }
+
+  static Future<bool> removeData(String key) async {
+    return preferences.remove(key);
+  }
 }

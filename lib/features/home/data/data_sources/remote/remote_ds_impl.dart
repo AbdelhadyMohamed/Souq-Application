@@ -8,6 +8,7 @@ import 'package:ecommerce/core/error/failures.dart';
 import 'package:ecommerce/features/home/data/data_sources/remote/remote_ds.dart';
 import 'package:ecommerce/features/home/data/models/CartModel.dart';
 import 'package:ecommerce/features/home/data/models/CategoryBrandsModel.dart';
+import 'package:ecommerce/features/home/data/models/ChangePasswordMessageModel.dart';
 import 'package:ecommerce/features/home/data/models/WishListModel.dart';
 import 'package:injectable/injectable.dart';
 
@@ -73,6 +74,33 @@ class HomeTabRemoteDSImpl implements HomeTabRemoteDS {
       return Right(wishListModel);
     } on DioException catch (e) {
       return Left(RemoteFailures(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, ChangePasswordMessageModel>> changePassword(
+      String currentPassword,
+      String password,
+      String rePassword,
+      String? token) async {
+    try {
+      Response response = await apiManager
+          .putData(endPoint: EndPoints.changePassword, token: token, body: {
+        "currentPassword": currentPassword,
+        "password": password,
+        "rePassword": rePassword
+      });
+      ChangePasswordMessageModel messageModel =
+          ChangePasswordMessageModel.fromJson(response.data);
+      return Right(messageModel);
+    } on DioException catch (e) {
+      Map<String, dynamic> response = jsonDecode(e.response.toString());
+      ErrorModel errorModel = ErrorModel.fromJson(response);
+      if (errorModel.message == "fail") {
+        return Left(RemoteFailures(errorModel.errors?.msg ?? "Error"));
+      } else {
+        return Left(RemoteFailures(errorModel.message ?? "Error"));
+      }
     }
   }
 }

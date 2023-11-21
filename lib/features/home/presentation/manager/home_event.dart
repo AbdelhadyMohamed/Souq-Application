@@ -18,3 +18,7 @@ class TabChange extends HomeEvent {
 }
 
 class GetWishList extends HomeEvent {}
+
+class GetUserData extends HomeEvent {}
+
+class ChangePassword extends HomeEvent {}

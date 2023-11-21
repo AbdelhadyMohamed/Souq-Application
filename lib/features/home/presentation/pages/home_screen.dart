@@ -1,5 +1,6 @@
 import 'package:ecommerce/config/routes/routes.dart';
 import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.dart';
+import 'package:ecommerce/features/home/domain/use_cases/change_password_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_all_wish_list_items_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_brands_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
@@ -20,7 +21,8 @@ import '../../../product_list/presentation/bloc/product_list_bloc.dart';
 import '../../../product_list/presentation/pages/product_list.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  final startIndex;
+  HomeScreen({this.startIndex = 0, super.key});
   final List<Widget> tabs = [
     const HomeTab(),
     const ProductListScreen(),
@@ -34,13 +36,16 @@ class HomeScreen extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) => HomeBloc(
-                getIt<GetCategoriesUseCase>(),
-                getIt<GetBrandsUseCase>(),
-                getIt<AddToCartUseCase>(),
-                getIt<GetWishListItemsUseCase>())
-              ..add(GetCategoriesEvent())
-              ..add(GetBrandsEvent())
-              ..add(GetWishList())),
+                  getIt<GetCategoriesUseCase>(),
+                  getIt<GetBrandsUseCase>(),
+                  getIt<AddToCartUseCase>(),
+                  getIt<GetWishListItemsUseCase>(),
+                  getIt<ChangePasswordUseCase>(),
+                )
+                  ..add(GetUserData())
+                  ..add(GetCategoriesEvent())
+                  ..add(GetBrandsEvent())
+                  ..add(GetWishList())),
         BlocProvider(
           create: (context) => ProductListBloc(
               getIt<ProductListUseCase>(),
@@ -121,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                   height: 16.h,
                 ),
                 Expanded(
-                  child: tabs[state.index ?? 0],
+                  child: tabs[state.index ?? startIndex],
                 )
               ],
             ),

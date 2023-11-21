@@ -12,4 +12,5 @@ class EndPoints {
   static const String addToWishList = "/api/v1/wishlist";
   static const String getWishList = "/api/v1/wishlist";
   static const String deleteFromWishList = "/api/v1/wishlist/";
+  static const String changePassword = "/api/v1/users/changeMyPassword";
 }

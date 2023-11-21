@@ -76,6 +76,9 @@ class ProductItem extends StatelessWidget {
                               ),
                               child: InkWell(
                                 onTap: () {
+                                  HomeBloc.getIds!.contains(product?.id)
+                                      ? HomeBloc.getIds?.remove(product?.id)
+                                      : print("error");
                                   fav
                                       ? ProductListBloc.get(context).add(
                                           DelFromWishList(product?.id ?? ""))

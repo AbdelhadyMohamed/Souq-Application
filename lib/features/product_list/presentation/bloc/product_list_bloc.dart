@@ -24,6 +24,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
       this.addToWishListUseCase, this.delFormWishListUseCase)
       : super(ProductListInitial()) {
     on<ProductListEvent>((event, emit) async {
+      emit(state.copyWith(screenStatus: ScreenStatus.loading));
       if (event is GetAllProducts) {
         var result = await productListUseCase.call();
         result.fold((l) {

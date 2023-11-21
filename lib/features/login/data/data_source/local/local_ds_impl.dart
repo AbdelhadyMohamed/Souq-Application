@@ -12,4 +12,22 @@ class LogInLocalDSImpl implements LogInLocalDS {
       throw Exception();
     }
   }
+
+  @override
+  Future<bool> cacheUserName(String userName) {
+    try {
+      return CacheData.saveData("userName", userName);
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<bool> cacheUserEmail(String userEmail) {
+    try {
+      return CacheData.saveData("userEmail", userEmail);
+    } catch (e) {
+      throw Exception();
+    }
+  }
 }
