@@ -52,55 +52,58 @@ class CartScreen extends StatelessWidget {
             ),
             body: state.screenStatus == ScreenStatus.loading
                 ? const Center(child: CircularProgressIndicator())
-                : Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            return CartItem(
-                                cartModel: state.cartModel, index: index);
-                          },
-                          itemCount: state.cartModel?.data?.products?.length,
-                        ),
-                      ),
-                      Row(
+                : state.screenStatus == ScreenStatus.successfully
+                    ? Column(
                         children: [
-                          SizedBox(width: 20.w),
+                          Expanded(
+                            child: ListView.builder(
+                              itemBuilder: (context, index) {
+                                return CartItem(
+                                    cartModel: state.cartModel, index: index);
+                              },
+                              itemCount:
+                                  state.cartModel?.data?.products?.length,
+                            ),
+                          ),
                           Row(
                             children: [
-                              const Text(
-                                "total price: ",
-                                style: TextStyle(fontSize: 17),
+                              SizedBox(width: 20.w),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "total price: ",
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  Text(
+                                    "${state.cartModel?.data?.totalCartPrice} Egp",
+                                    style: const TextStyle(fontSize: 17),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "${state.cartModel?.data?.totalCartPrice} Egp",
-                                style: const TextStyle(fontSize: 17),
+                              const Spacer(),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: AppColors.blueColor,
+                                ),
+                                height: 70.h,
+                                width: 200.w,
+                                child: const Center(
+                                  child: Text(
+                                    "Check out",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22),
+                                  ),
+                                ),
                               ),
+                              const Spacer(),
                             ],
-                          ),
-                          const Spacer(),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: AppColors.blueColor,
-                            ),
-                            height: 70.h,
-                            width: 200.w,
-                            child: const Center(
-                              child: Text(
-                                "Check out",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 22),
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
+                          )
                         ],
                       )
-                    ],
-                  ),
+                    : const SizedBox(),
           );
         },
       ),

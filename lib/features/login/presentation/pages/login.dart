@@ -60,124 +60,123 @@ class LogInScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
             backgroundColor: AppColors.blueColor,
-            body: Padding(
-              padding: EdgeInsets.only(top: 70.h, left: 20.w, right: 20.w),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Image.asset("assets/images/route.png"),
-                    const Text("Welcome Back To Route",
-                        style: TextStyle(fontSize: 24, color: Colors.white)),
-                    const Text("Please sign in with your email",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    SizedBox(height: 70.h),
-                    const Text("UserName",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    Container(
-                        margin: EdgeInsets.only(top: 20.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white),
-                        child: TextFormField(
-                          // validator: (value) {
-                          //   if (value == null || value.isEmpty) {
-                          //     return 'Please enter your email';
-                          //   } else {
-                          //     return null;
-                          //   }
-                          // },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Enter your email'),
-                          controller: LoginBloc.get(context).emailController,
-                          keyboardType: TextInputType.emailAddress,
-                        )),
-                    SizedBox(height: 40.h),
-                    const Text("Password",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    Container(
-                        margin: EdgeInsets.only(top: 20.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white),
-                        child: TextFormField(
-                          // validator: (value) {
-                          //   if (value == null || value.isEmpty) {
-                          //     return 'Please enter a password';
-                          //   } else {
-                          //     return null;
-                          //   }
-                          // },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Enter your password'),
-                          controller: LoginBloc.get(context).passwordController,
-                          obscureText: true,
-                        )),
-                    SizedBox(height: 10.h),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoute.forgotPassword);
-                      },
-                      child: const Text("Forgot Password",
-                          textAlign: TextAlign.end,
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: 70.h, left: 20.w, right: 20.w),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image.asset("assets/images/route.png"),
+                      const Text("Welcome Back To Route",
+                          style: TextStyle(fontSize: 24, color: Colors.white)),
+                      const Text("Please sign in with your email",
                           style: TextStyle(fontSize: 18, color: Colors.white)),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 40.h),
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                          ),
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              LoginBloc.get(context).add(LogInButtonEvent());
-                            }
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(15.h.w),
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontSize: 20, color: AppColors.blueColor),
-                            ),
+                      SizedBox(height: 70.h),
+                      const Text("UserName",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      Container(
+                          margin: EdgeInsets.only(top: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white),
+                          child: TextFormField(
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'Please enter your email';
+                            //   } else {
+                            //     return null;
+                            //   }
+                            // },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                labelText: 'Enter your email'),
+                            controller: LoginBloc.get(context).emailController,
+                            keyboardType: TextInputType.emailAddress,
                           )),
-                    ),
-                    const SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Don't have an account?",
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 18.sp)),
-                        SizedBox(width: 10.w),
-                        InkWell(
-                            onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, AppRoute.signUp, (route) => false);
-                              LoginBloc.get(context).emailController.text = "";
-                              LoginBloc.get(context).passwordController.text =
-                                  "";
+                      SizedBox(height: 40.h),
+                      const Text("Password",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      Container(
+                          margin: EdgeInsets.only(top: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white),
+                          child: TextFormField(
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'Please enter a password';
+                            //   } else {
+                            //     return null;
+                            //   }
+                            // },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                labelText: 'Enter your password'),
+                            controller:
+                                LoginBloc.get(context).passwordController,
+                            obscureText: true,
+                          )),
+                      SizedBox(height: 10.h),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRoute.forgotPassword);
+                        },
+                        child: const Text("Forgot Password",
+                            textAlign: TextAlign.end,
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.white)),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 40.h),
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                            ),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                LoginBloc.get(context).add(LogInButtonEvent());
+                              }
                             },
-                            child: Text("Create Account",
+                            child: Padding(
+                              padding: EdgeInsets.all(15.h.w),
+                              child: Text(
+                                "Login",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 18.sp))),
-                      ],
-                    )
-                  ],
+                                    fontSize: 20, color: AppColors.blueColor),
+                              ),
+                            )),
+                      ),
+                      const SizedBox(height: 25),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't have an account?",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.sp)),
+                          SizedBox(width: 10.w),
+                          InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, AppRoute.signUp);
+                              },
+                              child: Text("Create Account",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18.sp))),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

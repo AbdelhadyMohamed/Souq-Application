@@ -52,7 +52,8 @@ class HomeScreen extends StatelessWidget {
               getIt<GetCartsUseCase>(),
               getIt<AddToWishListUseCase>(),
               getIt<DelFormWishListUseCase>())
-            ..add(GetAllProducts()),
+            ..add(GetAllProducts())
+            ..add(GetWish()),
         )
       ],
       child: BlocBuilder<HomeBloc, HomeState>(

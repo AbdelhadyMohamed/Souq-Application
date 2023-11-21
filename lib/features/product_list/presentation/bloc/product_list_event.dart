@@ -23,3 +23,5 @@ class DelFromWishList extends ProductListEvent {
 
   DelFromWishList(this.productId);
 }
+
+class GetWish extends ProductListEvent {}

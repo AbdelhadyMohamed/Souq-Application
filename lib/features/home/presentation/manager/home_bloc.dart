@@ -8,6 +8,7 @@ import 'package:ecommerce/features/home/domain/use_cases/add_to_cart_use_case.da
 import 'package:ecommerce/features/home/domain/use_cases/change_password_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_all_wish_list_items_use_case.dart';
 import 'package:ecommerce/features/home/domain/use_cases/get_categories_use_case.dart';
+import 'package:ecommerce/features/product_list/presentation/bloc/product_list_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';

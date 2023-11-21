@@ -46,12 +46,13 @@ class ChangePasswordScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const Text("Password changed successfully"),
+                          const Spacer(),
                           ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
-                                HomeScreen(startIndex: 3);
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, AppRoute.logIn, (route) => false);
                               },
-                              child: const Text("Go back")),
+                              child: const Text("go to log in")),
                         ],
                       ),
                     ),

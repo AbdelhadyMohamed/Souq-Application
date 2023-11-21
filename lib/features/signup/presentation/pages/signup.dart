@@ -85,186 +85,193 @@ class SignUpScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
             backgroundColor: AppColors.blueColor,
-            body: Padding(
-              padding: EdgeInsets.only(top: 70.h, left: 20.w, right: 20.w),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Image.asset("assets/images/route.png"),
-                    SizedBox(height: 10.h),
-                    const Text("Full Name",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white),
-                        child: TextFormField(
-                          controller:
-                              SignUpBloc.get(context).fullNameController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'enter your full name';
-                            } else if (RegExp(r'^([0-9]*[a-zA-Z]){3,}[0-9]*$')
-                                    .hasMatch(value) ==
-                                false) {
-                              return "name must exceed 3 letters";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Enter your full name'),
-                          keyboardType: TextInputType.name,
-                        )),
-                    SizedBox(height: 10.h),
-                    const Text("Phone Number",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    Container(
-                        margin: EdgeInsets.only(top: 20.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: Colors.white),
-                        child: TextFormField(
-                          controller:
-                              SignUpBloc.get(context).mobileNumberController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter mobile number';
-                            }
-                            final bool phoneValid =
-                                RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)')
-                                    .hasMatch(value);
-                            if (!phoneValid) {
-                              return "please enter a valid phone";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'enter your phone number'),
-                          keyboardType: TextInputType.phone,
-                        )),
-                    SizedBox(height: 10.h),
-                    const Text("E-mail Address",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: Colors.white),
-                        child: TextFormField(
-                          controller: SignUpBloc.get(context).emailController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please enter your email';
-                            }
-                            final bool emailValid = RegExp(
-                                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-                                .hasMatch(value);
-                            if (!emailValid) {
-                              return "please enter a valid email";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'enter your email address'),
-                          keyboardType: TextInputType.emailAddress,
-                        )),
-                    SizedBox(height: 10.h),
-                    const Text("Password",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    Container(
-                        margin: EdgeInsets.only(top: 20.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: Colors.white),
-                        child: TextFormField(
-                          controller:
-                              SignUpBloc.get(context).passwordController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter password';
-                            }
-                            final bool passwordValid = RegExp(
-                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                                .hasMatch(value);
-                            if (!passwordValid) {
-                              return "please enter a valid password";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Enter your password'),
-                          obscureText: true,
-                        )),
-                    SizedBox(height: 10.h),
-                    const Text("Password",
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
-                    Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: Colors.white),
-                        child: TextFormField(
-                          controller:
-                              SignUpBloc.get(context).rePasswordController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "please re-enter your password";
-                            } else if (value !=
-                                SignUpBloc.get(context)
-                                    .passwordController
-                                    .text) {
-                              return 'passwords does not match';
-                            } else {
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: 70.h, left: 20.w, right: 20.w),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image.asset("assets/images/route.png"),
+                      SizedBox(height: 10.h),
+                      const Text("Full Name",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white),
+                          child: TextFormField(
+                            controller:
+                                SignUpBloc.get(context).fullNameController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'enter your full name';
+                              } else if (RegExp(r'^([0-9]*[a-zA-Z]){3,}[0-9]*$')
+                                      .hasMatch(value) ==
+                                  false) {
+                                return "name must exceed 3 letters";
+                              }
                               return null;
-                            }
-                          },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Re-enter your password'),
-                          obscureText: true,
-                        )),
-                    Container(
-                      padding: EdgeInsets.only(top: 40.h),
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                          ),
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              SignUpBloc.get(context).add(RegisterEvent());
-                            }
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(15.h.w),
-                            child: Text(
-                              "Sing up",
-                              style: TextStyle(
-                                  fontSize: 20.sp, color: AppColors.blueColor),
-                            ),
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Enter your full name'),
+                            keyboardType: TextInputType.name,
                           )),
-                    ),
-                  ],
+                      SizedBox(height: 10.h),
+                      const Text("Phone Number",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      Container(
+                          margin: EdgeInsets.only(top: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.white),
+                          child: TextFormField(
+                            controller:
+                                SignUpBloc.get(context).mobileNumberController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter mobile number';
+                              }
+                              final bool phoneValid =
+                                  RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)')
+                                      .hasMatch(value);
+                              if (!phoneValid) {
+                                return "please enter a valid phone";
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'enter your phone number'),
+                            keyboardType: TextInputType.phone,
+                          )),
+                      SizedBox(height: 10.h),
+                      const Text("E-mail Address",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.white),
+                          child: TextFormField(
+                            controller: SignUpBloc.get(context).emailController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please enter your email';
+                              }
+                              final bool emailValid = RegExp(
+                                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                  .hasMatch(value);
+                              if (!emailValid) {
+                                return "please enter a valid email";
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'enter your email address'),
+                            keyboardType: TextInputType.emailAddress,
+                          )),
+                      SizedBox(height: 10.h),
+                      const Text("Password",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      Container(
+                          margin: EdgeInsets.only(top: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.white),
+                          child: TextFormField(
+                            controller:
+                                SignUpBloc.get(context).passwordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              }
+                              final bool passwordValid = RegExp(
+                                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                  .hasMatch(value);
+                              if (!passwordValid) {
+                                return "please enter a valid password";
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Enter your password'),
+                            obscureText: true,
+                          )),
+                      SizedBox(height: 10.h),
+                      const Text("Password",
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.white),
+                          child: TextFormField(
+                            controller:
+                                SignUpBloc.get(context).rePasswordController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "please re-enter your password";
+                              } else if (value !=
+                                  SignUpBloc.get(context)
+                                      .passwordController
+                                      .text) {
+                                return 'passwords does not match';
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Re-enter your password'),
+                            obscureText: true,
+                          )),
+                      Container(
+                        padding: EdgeInsets.only(top: 40.h),
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                            ),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                SignUpBloc.get(context).add(RegisterEvent());
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(15.h.w),
+                              child: Text(
+                                "Sing up",
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: AppColors.blueColor),
+                              ),
+                            )),
+                      ),
+                      SizedBox(height: 30.h)
+                    ],
+                  ),
                 ),
               ),
             ),

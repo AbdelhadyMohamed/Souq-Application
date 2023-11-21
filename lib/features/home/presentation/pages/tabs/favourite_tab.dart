@@ -16,13 +16,7 @@ class FavouritesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc(
-        getIt<GetCategoriesUseCase>(),
-        getIt<GetBrandsUseCase>(),
-        getIt<AddToCartUseCase>(),
-        getIt<GetWishListItemsUseCase>(),
-        getIt<ChangePasswordUseCase>(),
-      )..add(GetWishList()),
+      create: (context) => getIt<HomeBloc>()..add(GetWishList()),
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return state.screenStatus == HomeScreenStatus.loading

@@ -95,118 +95,120 @@ class ResetPasswordScreen extends StatelessWidget {
               backgroundColor: AppColors.blueColor,
               elevation: 0,
             ),
-            resizeToAvoidBottomInset: false,
             backgroundColor: AppColors.blueColor,
-            body: Padding(
-              padding: EdgeInsets.all(30.w.h),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Image.asset("assets/images/route.png"),
-                    SizedBox(height: 60.h),
-                    const Text("Reset your account password",
-                        style: TextStyle(fontSize: 24, color: Colors.white)),
-                    SizedBox(height: 30.h),
-                    const Text("Enter your email",
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    SizedBox(height: 20.h),
-                    Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: Colors.white),
-                        child: TextFormField(
-                          controller: ForgotPasswordScreenBloc.get(context)
-                              .emailController,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'enter the email here'),
-                        )),
-                    SizedBox(height: 20.h),
-                    const Text("Enter  new password",
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    SizedBox(height: 20.h),
-                    Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: Colors.white),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter password';
-                            }
-                            final bool passwordValid = RegExp(
-                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                                .hasMatch(value);
-                            if (!passwordValid) {
-                              return "please enter a valid password";
-                            }
-                            return null;
-                          },
-                          controller: ForgotPasswordScreenBloc.get(context)
-                              .passwordController,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'enter the new password here'),
-                        )),
-                    SizedBox(height: 20.h),
-                    const Text("Re-enter  new password",
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
-                    SizedBox(height: 20.h),
-                    Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: Colors.white),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value !=
-                                ForgotPasswordScreenBloc.get(context)
-                                    .passwordController
-                                    .text) {
-                              return "passwords does not match";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Re-enter password'),
-                        )),
-                    Container(
-                      padding: EdgeInsets.all(50.h.w),
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0.r),
-                              ),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                          ),
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              ForgotPasswordScreenBloc.get(context)
-                                  .add(ResetPasswordClicked());
-                            }
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(15.h.w),
-                            child: Text(
-                              "Confirm",
-                              style: TextStyle(
-                                  fontSize: 20.sp, color: AppColors.blueColor),
-                            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(30.w.h),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image.asset("assets/images/route.png"),
+                      SizedBox(height: 60.h),
+                      const Text("Reset your account password",
+                          style: TextStyle(fontSize: 24, color: Colors.white)),
+                      SizedBox(height: 30.h),
+                      const Text("Enter your email",
+                          style: TextStyle(color: Colors.white, fontSize: 18)),
+                      SizedBox(height: 20.h),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.white),
+                          child: TextFormField(
+                            controller: ForgotPasswordScreenBloc.get(context)
+                                .emailController,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'enter the email here'),
                           )),
-                    )
-                  ],
+                      SizedBox(height: 20.h),
+                      const Text("Enter  new password",
+                          style: TextStyle(color: Colors.white, fontSize: 18)),
+                      SizedBox(height: 20.h),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.white),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              }
+                              final bool passwordValid = RegExp(
+                                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                  .hasMatch(value);
+                              if (!passwordValid) {
+                                return "please enter a valid password";
+                              }
+                              return null;
+                            },
+                            controller: ForgotPasswordScreenBloc.get(context)
+                                .passwordController,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'enter the new password here'),
+                          )),
+                      SizedBox(height: 20.h),
+                      const Text("Re-enter  new password",
+                          style: TextStyle(color: Colors.white, fontSize: 18)),
+                      SizedBox(height: 20.h),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Colors.white),
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value !=
+                                  ForgotPasswordScreenBloc.get(context)
+                                      .passwordController
+                                      .text) {
+                                return "passwords does not match";
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Re-enter password'),
+                          )),
+                      Container(
+                        padding: EdgeInsets.all(50.h.w),
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0.r),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                            ),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                ForgotPasswordScreenBloc.get(context)
+                                    .add(ResetPasswordClicked());
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(15.h.w),
+                              child: Text(
+                                "Confirm",
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: AppColors.blueColor),
+                              ),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
