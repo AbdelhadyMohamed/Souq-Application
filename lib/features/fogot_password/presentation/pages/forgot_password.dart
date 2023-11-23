@@ -40,11 +40,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                         style: TextStyle(color: Colors.green, fontSize: 18)),
                     elevation: 0,
                     content: SizedBox(
-                      height: 100.h,
+                      height: 140.h,
                       child: Column(
                         children: [
                           Text(
                               "reset code sent ${state.messageModel?.message}"),
+                          Spacer(),
                           ElevatedButton(
                               onPressed: () {
                                 Navigator.pop(context);
@@ -65,11 +66,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                 title: const Text("Error", style: TextStyle(fontSize: 18)),
                 elevation: 0,
                 content: SizedBox(
-                  height: 100.h,
+                  height: 150.h,
                   child: Column(
                     children: [
                       Text(state.failures?.message ?? "unknown error occurred",
                           style: const TextStyle(color: Colors.red)),
+                      Spacer(),
                       ElevatedButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -95,7 +97,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       SizedBox(height: 50.h),
-                      Image.asset("assets/images/route.png"),
+                      Image.asset("assets/images/souq.png"),
                       SizedBox(height: 80.h),
                       const Text("Find your account",
                           style: TextStyle(fontSize: 24, color: Colors.white)),

@@ -104,7 +104,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.asset("assets/images/route.png"),
+                      Image.asset("assets/images/souq.png"),
                       SizedBox(height: 60.h),
                       const Text("Reset your account password",
                           style: TextStyle(fontSize: 24, color: Colors.white)),

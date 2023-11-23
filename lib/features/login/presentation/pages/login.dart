@@ -33,18 +33,28 @@ class LogInScreen extends StatelessWidget {
           } else if (state.screenStatus == ScreenStatus.successfully) {
             Navigator.pop(context);
             showDialog(
+                barrierDismissible: false,
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: const Text("success",
-                        style: TextStyle(color: Colors.green, fontSize: 18)),
-                    elevation: 0,
-                    content: Text("welcome ${state.userEntity?.user?.name}"),
-                  );
+                      title: const Text("success",
+                          style: TextStyle(color: Colors.green, fontSize: 18)),
+                      elevation: 0,
+                      content: SizedBox(
+                        height: 150.h,
+                        child: Column(children: [
+                          Text("welcome ${state.userEntity?.user?.name}"),
+                          const Spacer(),
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    AppRoute.homeScreen, (route) => false);
+                              },
+                              child: const Text("go to shop")),
+                          const Spacer(),
+                        ]),
+                      ));
                 });
-
-            Navigator.pushNamedAndRemoveUntil(
-                context, AppRoute.homeScreen, (route) => false);
           } else if (state.screenStatus == ScreenStatus.failure) {
             Navigator.pop(context);
             showDialog(
@@ -69,13 +79,14 @@ class LogInScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.asset("assets/images/route.png"),
-                      const Text("Welcome Back To Route",
+                      SizedBox(height: 40.h),
+                      Image.asset("assets/images/souq.png"),
+                      const Text("Welcome Back ",
                           style: TextStyle(fontSize: 24, color: Colors.white)),
-                      const Text("Please sign in with your email",
+                      const Text("Please sign in ",
                           style: TextStyle(fontSize: 18, color: Colors.white)),
                       SizedBox(height: 70.h),
-                      const Text("UserName",
+                      const Text("User Name",
                           style: TextStyle(fontSize: 18, color: Colors.white)),
                       Container(
                           margin: EdgeInsets.only(top: 20.h),
@@ -84,13 +95,13 @@ class LogInScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
                           child: TextFormField(
-                            // validator: (value) {
-                            //   if (value == null || value.isEmpty) {
-                            //     return 'Please enter your email';
-                            //   } else {
-                            //     return null;
-                            //   }
-                            // },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              } else {
+                                return null;
+                              }
+                            },
                             decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Enter your email'),
@@ -107,13 +118,13 @@ class LogInScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white),
                           child: TextFormField(
-                            // validator: (value) {
-                            //   if (value == null || value.isEmpty) {
-                            //     return 'Please enter a password';
-                            //   } else {
-                            //     return null;
-                            //   }
-                            // },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a password';
+                              } else {
+                                return null;
+                              }
+                            },
                             decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 labelText: 'Enter your password'),

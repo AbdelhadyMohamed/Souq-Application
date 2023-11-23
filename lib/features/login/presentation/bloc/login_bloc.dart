@@ -29,8 +29,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (event is LogInButtonEvent) {
         emit(state.copyWith(screenStatus: ScreenStatus.loading));
 
-        var result =
-            await logInUseCase.call("abdalhadymohamed36@gmail.com", "qwe123A@");
+        var result = await logInUseCase.call(
+            emailController.text, passwordController.text);
         result.fold((l) {
           emit(state.copyWith(screenStatus: ScreenStatus.failure, failures: l));
         }, (r) {

@@ -91,7 +91,7 @@ class ResetCode extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 50.h),
-                  Image.asset("assets/images/route.png"),
+                  Image.asset("assets/images/souq.png"),
                   SizedBox(height: 80.h),
                   const Text("Find your account",
                       style: TextStyle(fontSize: 24, color: Colors.white)),

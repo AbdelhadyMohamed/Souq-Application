@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                 height: 22.h,
                 width: 66.w,
                 child: Image.asset(
-                  "assets/images/route_logo.png",
+                  "assets/images/shop.png",
                   fit: BoxFit.contain,
                 ),
               ),
@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                         child: Icon(
                           Icons.shopping_cart,
                           size: 30.0.sp,
-                          color: const Color(0xff004182),
+                          color: AppColors.blueColor,
                         ),
                       ),
                     ],

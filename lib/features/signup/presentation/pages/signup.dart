@@ -92,13 +92,13 @@ class SignUpScreen extends StatelessWidget {
             backgroundColor: AppColors.blueColor,
             body: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(top: 70.h, left: 20.w, right: 20.w),
+                padding: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
                 child: Form(
                   key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.asset("assets/images/route.png"),
+                      Image.asset("assets/images/souq.png"),
                       SizedBox(height: 10.h),
                       const Text("Full Name",
                           style: TextStyle(fontSize: 18, color: Colors.white)),
