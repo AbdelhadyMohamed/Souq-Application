@@ -17,12 +17,13 @@ Clean and maintainable code structure: The clean architecture makes the code eas
 Responsive UI: Souq's UI adapts seamlessly to different screen sizes and resolutions.
 Seamless data fetching and management: Dio ensures efficient data fetching and posting from the e-commerce API.
 Secure shopping experience: Souq prioritizes user security with secure authentication mechanisms.
-![Screenshot_20231123_173533](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/48a34c98-6a0c-4800-8adf-afc3c4455dd4)
-![Screenshot_20231123_173539](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/640b9155-0827-436b-bbdc-a2f38344e466)
-![Screenshot_20231123_173600](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/7455ce76-8008-4e16-9c01-cc1190391020)
-![Screenshot_20231123_173612](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/e31c9fb2-6fc9-474c-8bea-653b4a17dc7e)
-![Screenshot_20231123_173620](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/0c44c955-e7cc-4243-9598-1ed4fec28b73)
-![Screenshot_20231123_174523](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/261ba69b-16a9-4b5f-a472-132201bf8ca8)
-![Screenshot_20231123_173441](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/23e8ccc6-4d57-453f-9cea-dc0b52c76b55)
-![Screenshot_20231123_173451](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/5cf3f70f-073e-4800-b9c9-d1ff78e5ecd5)
-![Screenshot_20231123_173500](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/f09a8e72-599c-482e-b720-8ca00bb9b46e)
+
+![Screenshot_20231123_173441](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/f1fabb12-68db-41fe-8380-8a90cf95bef1)
+![Screenshot_20231123_173451](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/0a5bf78f-9b48-4166-89f0-a05c6598bf38)![Screenshot_20231123_174523](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/da872086-f5e0-4689-913c-0298d1fd9cfd)
+
+![Screenshot_20231123_173500](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/ef20bb8f-e3fb-461b-8235-71013a2fec23)
+![Screenshot_20231123_173533](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/0ed1725d-4f64-459a-8b71-eeed305ed1c5)
+![Screenshot_20231123_173539](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/4eec9737-0880-4045-bd3e-e008d9740160)
+![Screenshot_20231123_173600](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/8a6d19c5-33cb-4c0c-897d-e9003e56b48d)
+![Screenshot_20231123_173612](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/3fcdc513-c32e-4215-bec8-9502b853bf7b)
+![Screenshot_20231123_173620](https://github.com/AbdelhadyMohamed/Souq-Application/assets/86628356/b1e02d10-4a7e-43be-9763-6b17efda1e17)
